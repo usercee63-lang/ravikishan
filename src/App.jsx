@@ -1,6 +1,9 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 
+
+
 import Header from "./components/layout/Header";
+import Footer from "./components/Footer";
 import Breadcrumb from "./components/navigation/Breadcrumb";
 import SearchBar from "./components/ui/SearchBar";
 
@@ -46,3 +49,10 @@ function App() {
 }
 
 export default App;
+
+
+<>
+  {/* Existing components */}
+
+  <Footer />
+</>
