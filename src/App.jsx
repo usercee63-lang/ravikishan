@@ -1,7 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
 
-
-
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 import Breadcrumb from "./components/navigation/Breadcrumb";
@@ -24,10 +22,7 @@ function App() {
       <SearchBar />
 
       <Routes>
-        <Route
-          path="/"
-          element={<Home />}
-        />
+        <Route path="/" element={<Home />} />
 
         <Route
           path="/subject/:subjectId"
@@ -44,15 +39,10 @@ function App() {
           element={<ContentPage />}
         />
       </Routes>
+
+      <Footer />
     </>
   );
 }
 
 export default App;
-
-
-<>
-  {/* Existing components */}
-
-  <Footer />
-</>
