@@ -1,0 +1,70 @@
+.fade{
+
+    animation:fade .45s ease;
+}
+
+.slide{
+
+    animation:slide .45s ease;
+}
+
+.zoom{
+
+    animation:zoom .35s ease;
+}
+
+@keyframes fade{
+
+from{
+
+opacity:0;
+
+}
+
+to{
+
+opacity:1;
+
+}
+
+}
+
+@keyframes slide{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+@keyframes zoom{
+
+from{
+
+opacity:0;
+
+transform:scale(.94);
+
+}
+
+to{
+
+opacity:1;
+
+transform:scale(1);
+
+}
+
+}

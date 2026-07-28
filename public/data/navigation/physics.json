@@ -1,0 +1,43 @@
+{
+  "name": "Physics",
+  "chapters": [
+    {
+      "id": "mechanics",
+      "title": "Mechanics",
+      "description": "Study of motion and force",
+
+      "topics": [
+        {
+          "id": "physical-quantity",
+          "title": "Physical Quantity",
+          "important": true
+        },
+        {
+          "id": "vector",
+          "title": "Vector"
+        },
+        {
+          "id": "     ",
+          "title":  "       "
+        }
+       
+      ]
+    },
+
+    {
+      "id": "heat",
+      "title": "Heat",
+
+      "topics": [
+        {
+          "id": "heat-and-temperature",
+          "title": "Heat and Temperature"
+        },
+        {
+          "id": "quantity-of-heat",
+          "title": "Quantity of Heat"
+        }
+      ]
+    }
+  ]
+}

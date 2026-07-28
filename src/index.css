@@ -1,0 +1,317 @@
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ===============================
+   PREMIUM DESIGN SYSTEM
+================================ */
+
+:root {
+
+  /* Brand */
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --secondary: #7c3aed;
+
+  /* Subject Colors */
+  --physics: #3b82f6;
+  --chemistry: #10b981;
+  --biology: #22c55e;
+  --mathematics: #f59e0b;
+  --english: #8b5cf6;
+  --nepali: #ef4444;
+
+  /* Background */
+  --bg: #f5f7fb;
+  --card: #ffffff;
+  --card-soft: #f8fbff;
+
+  /* Text */
+  --text: #0f172a;
+  --text-light: #64748b;
+
+  /* Border */
+  --border: #dbe4f0;
+
+  /* Radius */
+  --radius: 20px;
+
+  /* Shadows */
+  --shadow: 0 12px 30px rgba(15,23,42,.08);
+  --shadow-hover: 0 22px 50px rgba(37,99,235,.18);
+
+  /* Animation */
+  --transition: .3s ease;
+}
+
+/* ===============================
+   RESET
+================================ */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+
+    font-family:Inter,"Segoe UI",Roboto,sans-serif;
+
+    color:var(--text);
+
+    min-height:100vh;
+
+    background:
+
+        radial-gradient(circle at top left,
+        rgba(37,99,235,.18),
+        transparent 35%),
+
+        radial-gradient(circle at top right,
+        rgba(124,58,237,.18),
+        transparent 35%),
+
+        radial-gradient(circle at bottom,
+        rgba(59,130,246,.10),
+        transparent 45%),
+
+        linear-gradient(
+            180deg,
+            #eef4ff,
+            #f8fbff,
+            #ffffff
+        );
+
+    background-attachment:fixed;
+
+    -webkit-font-smoothing:antialiased;
+
+    text-rendering:optimizeLegibility;
+}
+
+#root{
+  min-height:100vh;
+}
+
+/* ===============================
+   LINKS
+================================ */
+
+a{
+  color:inherit;
+  text-decoration:none;
+  transition:var(--transition);
+}
+
+/* ===============================
+   BUTTONS
+================================ */
+
+button{
+
+  border:none;
+
+  cursor:pointer;
+
+  font:inherit;
+
+  transition:var(--transition);
+}
+
+/* ===============================
+   IMAGES
+================================ */
+
+img{
+  max-width:100%;
+  display:block;
+}
+
+/* ===============================
+   TYPOGRAPHY
+================================ */
+
+h1,h2,h3,h4,h5{
+
+  color:var(--text);
+
+  font-weight:700;
+
+  letter-spacing:-.02em;
+}
+
+p{
+
+  color:var(--text-light);
+
+  line-height:1.75;
+}
+
+/* ===============================
+   SELECTION
+================================ */
+
+::selection{
+
+  background:var(--primary);
+
+  color:white;
+}
+
+/* ===============================
+   SCROLLBAR
+================================ */
+
+::-webkit-scrollbar{
+  width:10px;
+}
+
+::-webkit-scrollbar-track{
+  background:#edf2f7;
+}
+
+::-webkit-scrollbar-thumb{
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--primary),
+      var(--secondary)
+    );
+
+  border-radius:999px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+  background:
+    linear-gradient(
+      180deg,
+      var(--primary-dark),
+      #6d28d9
+    );
+}
+
+/* ===============================
+   COMMON ANIMATIONS
+================================ */
+
+.fade{
+
+  animation:fade .35s ease;
+}
+
+.slide{
+
+  animation:slide .35s ease;
+}
+
+.zoom{
+
+  animation:zoom .35s ease;
+}
+
+@keyframes fade{
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(10px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:none;
+
+  }
+
+}
+
+@keyframes slide{
+
+  from{
+
+    opacity:0;
+
+    transform:translateX(15px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:none;
+
+  }
+
+}
+
+@keyframes zoom{
+
+  from{
+
+    opacity:0;
+
+    transform:scale(.98);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:scale(1);
+
+  }
+
+}
+
+/* ===============================
+   GLASS UTILITY
+================================ */
+
+.glass{
+
+  background:rgba(255,255,255,.75);
+
+  backdrop-filter:blur(16px);
+
+  border:1px solid rgba(255,255,255,.35);
+
+  box-shadow:var(--shadow);
+}
+
+/* ===============================
+   CARD UTILITY
+================================ */
+
+.card{
+
+  background:var(--card);
+
+  border-radius:var(--radius);
+
+  border:1px solid var(--border);
+
+  box-shadow:var(--shadow);
+
+  transition:var(--transition);
+}
+
+.card:hover{
+
+  transform:translateY(-5px);
+
+  box-shadow:var(--shadow-hover);
+}

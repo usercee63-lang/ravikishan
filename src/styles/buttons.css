@@ -1,0 +1,38 @@
+.btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:12px 24px;
+
+    border-radius:12px;
+
+    background:var(--primary);
+
+    color:white;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+    opacity:.92;
+}
+
+.btn-outline{
+
+    background:white;
+
+    color:var(--primary);
+
+    border:2px solid var(--primary);
+}
+
+.btn-outline:hover{
+
+    background:var(--primary);
+
+    color:white;
+}

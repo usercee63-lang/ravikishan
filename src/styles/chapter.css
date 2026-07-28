@@ -1,0 +1,38 @@
+.chapter-page {
+  padding: 40px;
+}
+
+.chapter-page h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.chapter-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  text-decoration: none;
+  color: #222;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: 0.3s;
+}
+
+.chapter-card:hover {
+  transform: translateY(-6px);
+}
+
+.chapter-title {
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.chapter-card p {
+  color: #666;
+}

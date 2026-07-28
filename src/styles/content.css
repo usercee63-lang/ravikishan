@@ -1,0 +1,45 @@
+.content-page{
+
+    max-width:900px;
+
+    margin:auto;
+
+    padding:40px;
+}
+
+.content-card{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:40px;
+
+    box-shadow:var(--shadow);
+}
+
+.content-card h2{
+
+    margin-bottom:20px;
+}
+
+.content-card p{
+
+    margin-bottom:18px;
+
+    line-height:1.8;
+}
+
+.content-card ul{
+
+    margin-left:24px;
+
+    margin-bottom:18px;
+}
+
+.content-card img{
+
+    margin:30px auto;
+
+    border-radius:12px;
+}

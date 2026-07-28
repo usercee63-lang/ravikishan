@@ -1,0 +1,44 @@
+[
+  {
+    "id": "physics",
+    "name": "Physics",
+    "icon": "⚛️",
+    "color": "#3b82f6",
+    "file": "/data/physics.json"
+  },
+  {
+    "id": "chemistry",
+    "name": "Chemistry",
+    "icon": "🧪",
+    "color": "#10b981",
+    "file": "/data/chemistry.json"
+  },
+  {
+    "id": "biology",
+    "name": "Biology",
+    "icon": "🧬",
+    "color": "#22c55e",
+    "file": "/data/biology.json"
+  },
+  {
+    "id": "mathematics",
+    "name": "Mathematics",
+    "icon": "📐",
+    "color": "#f59e0b",
+    "file": "/data/mathematics.json"
+  },
+  {
+    "id": "english",
+    "name": "English",
+    "icon": "📚",
+    "color": "#8b5cf6",
+    "file": "/data/english.json"
+  },
+  {
+    "id": "nepali",
+    "name": "Nepali",
+    "icon": "📖",
+    "color": "#ef4444",
+    "file": "/data/nepali.json"
+  }
+]
