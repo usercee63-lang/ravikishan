@@ -23,6 +23,21 @@
        
       ]
     },
+     {
+      "id": "optics",
+      "title": "Optics",
+
+      "topics": [
+        {
+          "id": "reflection-at-curve-surface",
+          "title": "Reflection at Curved Surface"
+        },
+        {
+          "id": "refraction-at-plane-surface",
+          "title": "Refraction at Plane Surface"
+        }
+      ]
+    },
 
     {
       "id": "heat",
