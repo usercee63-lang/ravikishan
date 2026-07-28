@@ -28,7 +28,7 @@ function Home() {
         <h2 className="section-title">
           Contents 📖 
         </h2>
-
+         <CreditBanner />
         <div className="subject-grid">
           {subjects.map((subject) => (
             <Link
