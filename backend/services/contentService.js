@@ -12,7 +12,14 @@ function getContent(subject, chapter, topic) {
     `${topic}.json`
   );
 
-  console.log("Looking for:", filePath);
+  console.log({
+  subject,
+  chapter,
+  topic,
+});
+
+console.log("Looking for:", filePath);
+console.log("Exists:", fs.existsSync(filePath));
 
   if (!fs.existsSync(filePath)) {
     throw new Error("Content not found");
