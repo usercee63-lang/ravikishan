@@ -85,7 +85,7 @@
       "description": "",
       "topics": [
         {
-          "id": "gas-state.json",
+          "id": "gas-state",
           "title": "Gas State"
         },
         {
