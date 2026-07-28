@@ -17,13 +17,13 @@
       ]
     },
     {
-      "id": "geometry",
-      "title": "Geometry",
+      "id": "analytical-geometry",
+      "title": "Analytical Geometry",
       "description": "",
       "topics": [
         {
-          "id": "triangles",
-          "title": "Triangles"
+          "id": "geometry.9-1",
+          "title": "Geometry 9-1"
         },
         {
           "id": "circles",
