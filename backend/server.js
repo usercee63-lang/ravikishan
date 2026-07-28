@@ -12,7 +12,7 @@ const contentRoutes = require("./routes/content");
 const navigationRoutes = require("./routes/navigation");
 const authRoutes = require("./routes/auth");
 
-connectDB();
+ //connectDB(); 
 
 const app = express();
 
