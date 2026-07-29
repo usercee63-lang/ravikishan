@@ -5,11 +5,14 @@ import { useContent } from "../hooks/useContent";
 import { useReadingHistory } from "../hooks/useReadingHistory";
 import { useProgress } from "../hooks/useProgress";
 
+import ReadingProgress from "../components/contents/ReadingProgress";
+import ReadingTime from "../components/contents/ReadingTime";
 import ProgressButton from "../components/contents/ProgressButton";
 import ContentRenderer from "../components/contents/ContentRenderer";
 import ContentExtras from "../components/contents/ContentExtras";
-import AiTutorButton from "../components/AiTutorButton";
+
 import CreditBanner from "../components/CreditBanner";
+import AiTutorButton from "../components/AiTutorButton";
 
 function ContentPage() {
   const { subjectId, chapterId, topicId } = useParams();
@@ -46,28 +49,32 @@ function ContentPage() {
   if (!content) return <h2>No content found.</h2>;
 
   return (
-    <div className="content-page zoom">
-      <div className="content-card">
-        <h2>{content.title}</h2>
+    <>
+      <ReadingProgress />
 
-       <ProgressButton
-  status={status}
-  updateStatus={updateStatus}
-/>
+      <div className="content-page zoom">
+        <div className="content-card">
+          <h2>{content.title}</h2>
 
-    <CreditBanner />
+          <ReadingTime
+            text={JSON.stringify(content.notes || [])}
+          />
 
-    <ContentRenderer content={content} />
+          <ProgressButton
+            status={status}
+            updateStatus={updateStatus}
+          />
 
-    <ContentExtras content={content} />
+          <CreditBanner />
 
-        <ContentRenderer content={content} />
+          <ContentRenderer content={content} />
 
-        <ContentExtras content={content} />
+          <ContentExtras content={content} />
 
-        <AiTutorButton content={content} />
+          <AiTutorButton content={content} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
