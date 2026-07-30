@@ -12,6 +12,34 @@
           "title": "Physical Quantity",
           "important": true
         },
+         {
+          "id": "dimensions",
+          "title": "Dimensions"
+        },
+        {
+          "id": "errors",
+          "title": "Errors"
+        },
+        {
+          "id": "m,p-errors",
+          "title": "M,P Errors"
+        },
+         {
+          "id": "s-f-rules",
+          "title": "S F Rules"
+        },
+         {
+          "id": "numerical-p",
+          "title": "Numerical P"
+        },
+        {
+          "id": "c,q-and-mcq",
+          "title": "C,Q and MCQ"
+        },
+         {
+          "id": "l,s,a,q-and-n",
+          "title": "L,S,A,Q and N"
+        },
         {
           "id": "vector",
           "title": "Vector"

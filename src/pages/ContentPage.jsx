@@ -56,9 +56,45 @@ function ContentPage() {
 
   if (loading) return <h2>Loading...</h2>;
 
-  if (error) return <h2>{error}</h2>;
+if (error) {
+  return (
+    <div className="content-page zoom">
+      <div className="content-card">
+        <h2>🚧 This section is coming soon 🚀</h2>
 
-  if (!content) return <h2>No content found.</h2>;
+        <p
+          style={{
+            marginTop: 20,
+            color: "#64748b",
+            fontSize: "18px",
+          }}
+        >
+          Content for this topic has not been added yet.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+if (!content) {
+  return (
+    <div className="content-page zoom">
+      <div className="content-card">
+        <h2>🚧 This section is coming soon 🚀</h2>
+
+        <p
+          style={{
+            marginTop: 20,
+            color: "#64748b",
+            fontSize: "18px",
+          }}
+        >
+          Content for this topic has not been added yet.
+        </p>
+      </div>
+    </div>
+  );
+}
 
   return (
     <>
