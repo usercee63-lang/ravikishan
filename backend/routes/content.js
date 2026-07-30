@@ -15,9 +15,15 @@ router.get("/:subject/:chapter/:topic", (req, res) => {
 
     res.json(data);
   } catch (err) {
-    res.status(404).json({
-      success: false,
-      message: err.message,
+    res.json({
+      comingSoon: true,
+      title: req.params.topic,
+      notes: [],
+      numericals: [],
+      flashcards: [],
+      quiz: [],
+      video: [],
+      mindmap: [],
     });
   }
 });
