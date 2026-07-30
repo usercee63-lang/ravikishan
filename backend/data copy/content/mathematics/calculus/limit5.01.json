@@ -1,0 +1,63 @@
+{
+"title": "LIMITS — Infinite Limits, Indeterminate Forms & Evaluation Techniques (Class 11/12 Calculus)",
+"notes": [
+
+"♾️ INFINITE LIMITS — Three fundamental results: (1) lim(x→0⁺) 1/x = +∞  (2) lim(x→0⁻) 1/x = −∞  (3) lim(x→∞) 1/x = 0. Note: 1/0 itself is undefined; these are LIMIT statements about behavior near 0 or ∞, not actual values.",
+
+"⚠️ INDETERMINATE FORMS — A limit is called indeterminate when direct substitution gives one of these 7 forms, meaning the actual value must be 'determined' using algebraic techniques (factorization, rationalization, dividing by highest power, etc.) since these forms alone give NO valid conclusion: (i) 0/0  (ii) ∞/∞  (iii) ∞−∞  (iv) 0×∞  (v) 0⁰  (vi) ∞⁰  (vii) 1^∞",
+
+"📘 METHOD 1 — DIRECT SUBSTITUTION METHOD: Simply substitute x = a directly into the function. Used when the function is continuous at x = a and does NOT give an indeterminate form.",
+
+"📘 METHOD 2 — SIMPLIFICATION AND SUBSTITUTION METHOD: Used when direct substitution gives 0/0. Steps: (1) Factorize numerator and denominator (2) Cancel the common factor causing the 0/0 (3) Then substitute x = a in the simplified expression.",
+
+"✏️ EXAMPLE 1 (Method 2 — Factorization): Evaluate lim(x→2) (x²−4)/(x−2). STEP 1: Direct substitution gives (4−4)/(2−2) = 0/0 (indeterminate). STEP 2: Factor numerator: x²−4 = (x−2)(x+2). STEP 3: lim(x→2) [(x−2)(x+2)]/(x−2) = lim(x→2) (x+2) [cancel (x−2)]. STEP 4: Substitute x=2: 2+2 = **4**. ✅ Answer: 4",
+
+"✏️ EXAMPLE 2: Evaluate lim(x→3) (x²−9)/(x−3). STEP 1: 0/0 form at x=3. STEP 2: Factor: x²−9=(x−3)(x+3). STEP 3: Cancel (x−3): lim(x→3)(x+3). STEP 4: = 3+3 = **6**. ✅ Answer: 6",
+
+"✏️ EXAMPLE 3: Evaluate lim(x→1) (x²+x−2)/(x²+7x−8). STEP 1: At x=1: (1+1−2)/(1+7−8) = 0/0. STEP 2: Factor numerator: x²+x−2 = (x+2)(x−1). Factor denominator: x²+7x−8 = (x+8)(x−1). STEP 3: Cancel (x−1): lim(x→1) (x+2)/(x+8). STEP 4: Substitute x=1: (1+2)/(1+8) = 3/9 = **1/3**. ✅ Answer: 1/3",
+
+"✏️ EXAMPLE 4: Evaluate lim(x→2) (x²−4x+4)/(x²−7x+10). STEP 1: At x=2: (4−8+4)/(4−14+10) = 0/0. STEP 2: Factor numerator: x²−4x+4 = (x−2)(x−2) = (x−2)². Factor denominator: x²−7x+10 = (x−2)(x−5). STEP 3: Cancel one (x−2): lim(x→2) (x−2)/(x−5). STEP 4: Substitute x=2: (2−2)/(2−5) = 0/(−3) = **0**. ✅ Answer: 0",
+
+"✏️ EXAMPLE 5: Evaluate lim(x→0) (3x²+2x)/(3x²+4x). STEP 1: At x=0: 0/0 form. STEP 2: Factor out x from both: numerator = x(3x+2), denominator = x(3x+4). STEP 3: Cancel x: lim(x→0) (3x+2)/(3x+4). STEP 4: Substitute x=0: 2/4 = **1/2**. ✅ Answer: 1/2",
+
+"✏️ EXAMPLE 6: Evaluate lim(x→1) (x²+3x−4)/(x−1). STEP 1: At x=1: (1+3−4)/(0) = 0/0. STEP 2: Factor numerator: x²+3x−4 = (x−1)(x+4). STEP 3: Cancel (x−1): lim(x→1)(x+4). STEP 4: = 1+4 = **5**. ✅ Answer: 5",
+
+"✏️ EXAMPLE 7: Evaluate lim(x→2) (x²−5x+6)/(x²−x−2). STEP 1: At x=2: (4−10+6)/(4−2−2) = 0/0. STEP 2: Factor numerator: x²−5x+6 = (x−2)(x−3). Factor denominator: x²−x−2 = (x−2)(x+1). STEP 3: Cancel (x−2): lim(x→2) (x−3)/(x+1). STEP 4: Substitute x=2: (2−3)/(2+1) = **−1/3**. ✅ Answer: −1/3",
+
+"📐 METHOD 3 — RATIONALIZATION METHOD (for limits containing surds/square roots giving 0/0): Multiply numerator and denominator by the CONJUGATE of the surd expression to remove the root, using (a−b)(a+b) = a²−b².",
+
+"✏️ EXAMPLE 8: Evaluate lim(x→1) [√(x+1) − √2] / (x−1). STEP 1: At x=1: (√2−√2)/0 = 0/0. STEP 2: Multiply num & denom by conjugate [√(x+1)+√2]: → [(x+1)−2] / {(x−1)[√(x+1)+√2]}. STEP 3: Simplify numerator: (x+1−2) = (x−1). So expression = (x−1)/{(x−1)[√(x+1)+√2]}. STEP 4: Cancel (x−1): lim(x→1) 1/[√(x+1)+√2]. STEP 5: Substitute x=1: 1/(√2+√2) = 1/(2√2) = **√2/4**. ✅ Answer: √2/4 (or 1/2√2)",
+
+"✏️ EXAMPLE 9: Evaluate lim(x→−1) [√(x+2) − 1] / (x+1). STEP 1: At x=−1: (1−1)/0 = 0/0. STEP 2: Multiply by conjugate [√(x+2)+1]: → [(x+2)−1] / {(x+1)[√(x+2)+1]} = (x+1)/{(x+1)[√(x+2)+1]}. STEP 3: Cancel (x+1): lim(x→−1) 1/[√(x+2)+1]. STEP 4: Substitute x=−1: 1/(√1+1) = 1/2. ✅ Answer: **1/2**",
+
+"✏️ EXAMPLE 10 (Rationalization with parameter 'a'): Evaluate lim(x→a) [√(3x) − √(2x+a)] / [2(x−a)]. STEP 1: At x=a: [√3a−√3a]/0 = 0/0. STEP 2: Multiply num & denom by conjugate [√3x+√(2x+a)]: → [3x−(2x+a)] / {2(x−a)[√3x+√(2x+a)]}. STEP 3: Simplify numerator: 3x−2x−a = (x−a). Expression = (x−a)/{2(x−a)[√3x+√(2x+a)]}. STEP 4: Cancel (x−a): lim(x→a) 1/{2[√3x+√(2x+a)]}. STEP 5: Substitute x=a: 2x+a → 3a, so = 1/{2[√3a+√3a]} = 1/(2×2√3a) = **1/(4√3a)**. ✅ Answer: 1/(4√3a)",
+
+"✏️ EXAMPLE 11 (Rationalization, two roots): Evaluate lim(x→a) [√(2x) − √(3x−a)] / (√x − √a). STEP 1: At x=a: (√2a−√2a)/0 = 0/0. STEP 2: Rationalize NUMERATOR — multiply by [√2x+√(3x−a)]: gives [2x−(3x−a)] = (a−x) = −(x−a). STEP 3: Rationalize DENOMINATOR — multiply by [√x+√a]: gives (x−a). STEP 4: Combined expression = [−(x−a)/(√2x+√(3x−a))] ÷ [(x−a)/(√x+√a)] = −(√x+√a)/(√2x+√(3x−a)). STEP 5: Substitute x=a: −(√a+√a)/(√2a+√2a) = −2√a/2√2a = −√a/√2a = **−1/√2**. ✅ Answer: −1/√2 (i.e. −√2/2)",
+
+"♾️ EXAMPLE 12 (Rationalization at Infinity): Evaluate lim(x→∞) [√(2x+1) − √(2x)]. STEP 1: This is ∞−∞ form. STEP 2: Multiply and divide by conjugate [√(2x+1)+√(2x)]: → [(2x+1)−2x] / [√(2x+1)+√(2x)] = 1/[√(2x+1)+√(2x)]. STEP 3: As x→∞, the denominator → ∞ (since both square-root terms grow without bound). STEP 4: So the whole fraction → 1/∞ = **0**. ✅ Answer: 0",
+
+"📊 METHOD 4 — DIVIDING BY HIGHEST POWER OF x (for ∞/∞ form as x→∞): Divide EVERY term in numerator and denominator by the highest power of x present. As x→∞, any term of the form k/xⁿ (n≥1) → 0.",
+
+"✏️ EXAMPLE 13: Evaluate lim(x→∞) (2x²+5x+3)/(x²+7x+5). STEP 1: This is ∞/∞ form. STEP 2: Divide every term by x² (highest power): → (2 + 5/x + 3/x²)/(1 + 7/x + 5/x²). STEP 3: As x→∞: 5/x→0, 3/x²→0, 7/x→0, 5/x²→0. STEP 4: Expression → (2+0+0)/(1+0+0) = **2**. ✅ Answer: 2",
+
+"✏️ EXAMPLE 14: Evaluate lim(x→∞) (7x²+4x+1)/(x²+5x+2). STEP 1: ∞/∞ form. STEP 2: Divide by x²: (7+4/x+1/x²)/(1+5/x+2/x²). STEP 3: As x→∞, all fractional terms → 0. STEP 4: → 7/1 = **7**. ✅ Answer: 7",
+
+"✏️ EXAMPLE 15: Evaluate lim(x→∞) (15x³+7x²+5x+1)/(5x³+2x²+10x). STEP 1: ∞/∞ form. STEP 2: Divide every term by x³ (highest power): (15+7/x+5/x²+1/x³)/(5+2/x+10/x²). STEP 3: As x→∞, all terms with 1/x, 1/x², 1/x³ → 0. STEP 4: → 15/5 = **3**. ✅ Answer: 3",
+
+"🔑 STANDARD FORMULA — lim(x→a) (xⁿ−aⁿ)/(x−a) = n·aⁿ⁻¹. DERIVATION: Using the algebraic identity xⁿ−aⁿ = (x−a)(xⁿ⁻¹+axⁿ⁻²+a²xⁿ⁻³+...+aⁿ⁻¹), cancel (x−a), then substitute x=a into the remaining n terms (each becoming aⁿ⁻¹), giving n·aⁿ⁻¹ total.",
+
+"✏️ EXAMPLE 16 (Using the Standard Formula): Evaluate lim(x→2) (x⁴−16)/(x−2). STEP 1: Recognize 16 = 2⁴, so this is the form (xⁿ−aⁿ)/(x−a) with n=4, a=2. STEP 2: Apply formula: n·aⁿ⁻¹ = 4×(2)³ = 4×8 = **32**. ✅ Answer: 32",
+
+"✏️ EXAMPLE 17: Evaluate lim(x→2) (x⁵−32)/(x−2). STEP 1: 32 = 2⁵, so n=5, a=2. STEP 2: Apply formula: n·aⁿ⁻¹ = 5×(2)⁴ = 5×16 = **80**. ✅ Answer: 80",
+
+"✏️ EXAMPLE 18 (Verifying formula by direct factorization): Evaluate lim(x→1) (x⁴−1)/(x−1). STEP 1: Factor using xⁿ−aⁿ identity: x⁴−1 = (x−1)(x³+x²+x+1). STEP 2: Cancel (x−1): lim(x→1) (x³+x²+x+1). STEP 3: Substitute x=1: 1+1+1+1 = **4**. STEP 4 (Check via formula): n·aⁿ⁻¹ = 4×(1)³ = 4. ✔️ Matches. ✅ Answer: 4",
+
+"🔢 METHOD 5 — nth ROOT LIMITS (substitution trick): For limits like lim(x→a) [x^(1/p) − a^(1/p)] / [x^(1/q) − a^(1/q)], SUBSTITUTE x = tᵏ where k = LCM(p,q), so that both roots become simple powers of t, then use the standard formula or direct factorization.",
+
+"✏️ EXAMPLE 19: Evaluate lim(x→64) (⁶√x − 2)/(³√x − 4). STEP 1: Note 64 = 2⁶ = 4³, so let x = t⁶ (since 6 = LCM(6,3)); as x→64, t→2 (since 2⁶=64). STEP 2: Rewrite: ⁶√x = ⁶√(t⁶) = t, and ³√x = ³√(t⁶) = t². So the expression becomes (t−2)/(t²−4). STEP 3: Factor denominator: t²−4 = (t−2)(t+2). STEP 4: Cancel (t−2): lim(t→2) 1/(t+2). STEP 5: Substitute t=2: 1/(2+2) = **1/4**. ✅ Answer: 1/4",
+
+"✏️ EXAMPLE 20: Evaluate lim(x→1) (¹⁰√x − 1)/(⁵√x − 1). STEP 1: Let x = t¹⁰ (since 10 = LCM(10,5)); as x→1, t→1 (since 1¹⁰=1). STEP 2: Rewrite: ¹⁰√x = t, and ⁵√x = ¹⁰√(x²) = t². So expression becomes (t−1)/(t²−1). STEP 3: Factor denominator: t²−1 = (t−1)(t+1). STEP 4: Cancel (t−1): lim(t→1) 1/(t+1). STEP 5: Substitute t=1: 1/(1+1) = **1/2**. ✅ Answer: 1/2",
+
+"⭐ QUICK REVISION — CHOOSING THE RIGHT METHOD: (1) If direct substitution gives a definite number → just substitute (Method 1). (2) If it gives 0/0 with polynomials → factorize and cancel (Method 2). (3) If it gives 0/0 or ∞−∞ with SQUARE ROOTS → rationalize using the conjugate (Method 3). (4) If it gives ∞/∞ as x→∞ with polynomials → divide by the highest power of x (Method 4). (5) If numerator/denominator is exactly (xⁿ−aⁿ) → use the standard formula n·aⁿ⁻¹ directly (Method 5a), or for MIXED root indices, substitute x = tᵏ where k = LCM of the root indices (Method 5b)."
+]
+}
