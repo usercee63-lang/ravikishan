@@ -1,0 +1,27 @@
+.content-tabs{
+    display:flex;
+    gap:12px;
+    margin:20px 0;
+    padding-bottom:10px;
+    border-bottom:2px solid #e5e7eb;
+}
+
+.tab-button{
+    padding:10px 22px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    background:#eef2ff;
+    color:#334155;
+    font-weight:600;
+    transition:.25s;
+}
+
+.tab-button:hover{
+    background:#dbeafe;
+}
+
+.tab-button.active{
+    background:linear-gradient(90deg,#2563eb,#7c3aed);
+    color:white;
+}

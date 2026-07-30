@@ -1,0 +1,36 @@
+.content-tabs{
+    display:flex;
+    gap:12px;
+    margin:20px 0;
+}
+
+.content-tabs button{
+
+    padding:10px 22px;
+
+    border:none;
+
+    border-radius:12px;
+
+    background:#edf2ff;
+
+    color:#334155;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+.content-tabs button:hover{
+
+    background:#dbe7ff;
+}
+
+.content-tabs button.active{
+
+    background:linear-gradient(90deg,#2563eb,#7c3aed);
+
+    color:white;
+}

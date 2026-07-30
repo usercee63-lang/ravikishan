@@ -1,5 +1,6 @@
 import NotesRenderer from "../../renderers/NotesRenderer";
 
+import ComingSoon from "./ComingSoon";
 import Image from "./Image";
 import Table from "./Table";
 import Summary from "./Summary";
@@ -9,7 +10,10 @@ import Example from "./Example";
 import Practice from "./Practice";
 import KeyPoints from "./KeyPoints";
 
-export default function ContentRenderer({ content }) {
+export default function ContentRenderer({
+  content,
+  activeTab,
+}) {
   return (
     <>
       {content.notes && (
