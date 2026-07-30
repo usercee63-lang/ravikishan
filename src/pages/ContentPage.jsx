@@ -5,6 +5,7 @@ import { useContent } from "../hooks/useContent";
 import { useReadingHistory } from "../hooks/useReadingHistory";
 import { useProgress } from "../hooks/useProgress";
 
+import ComingSoon from "../components/contents/ComingSoon";
 import ReadingProgress from "../components/contents/ReadingProgress";
 import ReadingTime from "../components/contents/ReadingTime";
 import ProgressButton from "../components/contents/ProgressButton";
