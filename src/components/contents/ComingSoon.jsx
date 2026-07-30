@@ -1,24 +1,26 @@
-function ComingSoon({ title }) {
+function ComingSoon() {
   return (
     <div
       style={{
-        marginTop: 25,
-        padding: 30,
+        marginTop: 30,
+        padding: 40,
         textAlign: "center",
         borderRadius: 16,
-        border: "1px dashed #cbd5e1",
         background: "#f8fafc",
+        border: "1px solid #e2e8f0",
       }}
     >
-      <h3>{title}</h3>
+      <h2 style={{ marginBottom: 20 }}>
+        🚧 This section is coming soon 🚀
+      </h2>
 
       <p
         style={{
-          marginTop: 10,
-          color: "#64748b",
+          fontSize: 18,
+          color: "#475569",
         }}
       >
-        🚧 This section is coming soon 🚀
+        This feature is under development and will be available in a future update.
       </p>
     </div>
   );

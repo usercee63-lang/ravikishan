@@ -97,6 +97,9 @@ if (!content) {
   );
 }
 
+if (content?.comingSoon) {
+  return <ComingSoon />;
+}
   return (
     <>
       <ReadingProgress />
