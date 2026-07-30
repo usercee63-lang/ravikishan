@@ -35,6 +35,10 @@
         {
           "id": "refraction-at-plane-surface",
           "title": "Refraction at Plane Surface"
+        },
+        {
+          "id": "opticsn1",
+          "title": "Optics N1"
         }
       ]
     },

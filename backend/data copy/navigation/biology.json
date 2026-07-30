@@ -2,17 +2,17 @@
   "name": "Biology",
   "chapters": [
     {
-      "id": "cell biology",
-      "title": "Cell Biology",
+      "id": "botany",
+      "title": "Botany",
       "description": "",
       "topics": [
         {
-          "id": "cell structure",
-          "title": "Cell Structure"
+          "id": "bio-molecules",
+          "title": "Bio-Molecules"
         },
         {
-          "id": "cell division",
-          "title": "Cell Division"
+          "id": "cell-biology",
+          "title": "Cell Biology"
         },
         {
           "id": "botany5.1",
