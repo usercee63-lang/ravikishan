@@ -39,6 +39,18 @@
         {
           "id": "opticsn1",
           "title": "Optics N1"
+        },
+        {
+          "id": "n1",
+          "title": "N1"
+        },
+         {
+          "id": "n2",
+          "title": "N2"
+        },
+         {
+          "id": "n3",
+          "title": "N3"
         }
       ]
     },
