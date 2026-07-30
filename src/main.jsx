@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./styles/theme.css";
 
 import "./index.css";
+import "./styles/footer.css";
 
 import "./styles/cards.css";
 import "./styles/buttons.css";

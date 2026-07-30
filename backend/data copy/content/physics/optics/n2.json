@@ -1,56 +1,64 @@
 {
   "title": "N2",
   "notes": [
-    "**Part 2: The Hint Decoder (What Indicates What)**",
-    "When reading a physics problem, specific words act as hidden codes. Here is what they secretly tell you:",
-    "**1. Hints about the Mirror Type**",
-    "- **\"Shaving mirror\" or \"Makeup mirror\"** → It is a **Concave** mirror used to create an enlarged, virtual image.",
-    "- **\"Rear-view mirror\" or \"Driver's mirror\"** → It is a **Convex** mirror used to see a wide view of smaller, virtual images.",
-    "- **\"Reflecting surface is curved inwards\"** → **Concave** mirror.",
-    "- **\"Reflecting surface is curved outwards\"** → **Convex** mirror.",
-    "**2. Hints about Image Nature & Sign Rules**\n\n| The Phrase in the Question | What it means for Standard Cartesian | What it means for Real-is-Positive (RIP) |\n|---|---|---|\n| \"Brought to a focus on a screen\" | Real Image → v is negative, m is negative | Real Image → v is positive, m is positive |\n| \"Inverted image\" | Real Image → v is negative, m is negative | Real Image → v is positive, m is positive |\n| \"Erect image\" or \"Upright\" | Virtual Image → v is positive, m is positive | Virtual Image → v is negative, m is negative |\n| \"Formed behind the mirror\" | Virtual Image → v is positive, m is positive | Virtual Image → v is negative, m is negative |\n| \"Formed in front of the mirror\" | Real Image → v is negative, m is negative | Real Image → v is positive, m is positive |",
+    "<h2>Part 1: Question Types & Their Solving Approaches</h2>",
+    "<p>Every mirror problem falls into one of three main categories.</p>",
 
-    "**Step 1: Find the Image Nature from the Keywords**",
-    "Look for these clues in the question text:\n\n| If the question says... | ...the Nature of the Image is |\n|---|---|\n| \"Erect\", \"Upright\", or \"Behind the mirror\" | Virtual |\n| \"Inverted\", \"On a screen\", or \"In front of a concave mirror\" | Real |\n| \"Convex mirror\" (for any real object) | **Always Virtual** (and smaller) |\n| \"Magnified image by a convex mirror\" | *Trick question!* Convex mirrors cannot magnify. |\n| \"Diminished image by a concave mirror\" | **Always Real** |",
-    "**Step 2: Choose the Sign Based on Your Convention**",
-    "Once you know if the image is **Real** or **Virtual**, apply the sign according to the system you are using:",
-    "**Option A: If you use the Standard Cartesian Convention (Most Common)**",
-    "- **Real Image**:\n  - Image is upside down (inverted) → **Take magnification as negative (−m)**\n  - Image is in front of the mirror → **Take image distance as negative (−v)**",
-    "- **Virtual Image**:\n  - Image is upright (erect) → **Take magnification as positive (+m)**\n  - Image is behind the mirror → **Take image distance as positive (+v)**",
-    "**Option B: If you use the Real-is-Positive (RIP) System**",
-    "- **Real Image**:\n  - Real things get a plus sign → **Take magnification as positive (+m)**\n  - Image is real → **Take image distance as positive (+v)**",
-    "- **Virtual Image**:\n  - Virtual things get a minus sign → **Take magnification as negative (−m)**\n  - Image is virtual → **Take image distance as negative (−v)**",
-    "**A Quick Example to Clarify**",
-    "**Question:** *\"A concave mirror forms an image magnified 3 times on a screen.\"*",
-    "1. **Find Nature**: The keyword \"on a screen\" means the image must be **Real**.",
-    "2. **Apply Sign**:\n   1. In **Standard Cartesian**: Take m = −3\n   2. In **Real-is-Positive**: Take m = +3",
+    "<h3>Type 1: The \"Direct Finder\"</h3>",
+    "<p><b>What it is:</b> The question gives you two variables (like u and f) and asks you to find the third (v), or asks for the final magnification.</p>",
+    "<p><b>Solving Approach:</b> Write down the givens with correct signs. Use the mirror formula 1/f = 1/v + 1/u to find the missing distance. Use the magnification formula (m = −v/u or m = v/u) to find the image characteristics.</p>",
 
-    "Here is the complete, comprehensive dictionary of every keyword, phrase, and hidden term that can appear in a spherical mirror physics question, along with exactly what it means for your calculations.",
-    "**1. Mirror Identification Words**\n\n| When the question says... | It means (Physical Concept) | Mathematical Value / Sign Hint |\n|---|---|---|\n| \"Concave mirror\" | Converging mirror. | Focal length (f) is **negative** (Standard) or **positive** (RIP). |\n| \"Convex mirror\" | Diverging mirror. | Focal length (f) is **positive** (Standard) or **negative** (RIP). |\n| \"Diverging mirror\" | Convex mirror. | Focal length (f) is **positive** (Standard) or **negative** (RIP). |\n| \"Converging mirror\" | Concave mirror. | Focal length (f) is **negative** (Standard) or **positive** (RIP). |\n| \"Shaving mirror\" | Concave mirror. | Object is close (u < f). Image is virtual and magnified. |\n| \"Makeup mirror\" | Concave mirror. | Object is close (u < f). Image is virtual and magnified. |\n| \"Dentist's mirror\" | Concave mirror. | Object is close (u < f). Image is virtual and magnified. |\n| \"Rear-view mirror\" | Convex mirror. | Image is always virtual, erect, and smaller. |\n| \"Driver's mirror\" | Convex mirror. | Image is always virtual, erect, and smaller. |\n| \"Security mirror\" | Convex mirror. | Used in shops/intersections; image is always smaller and virtual. |\n| \"Solar furnace / cooker\" | Concave mirror. | Light comes from infinity (u = ∞). Heat is focused at v = f. |",
-    "**2. Object Position & Distance Words**\n\n| When the question says... | It means (Physical Concept) | Mathematical Value / Sign Hint |\n|---|---|---|\n| \"An object is placed...\" | The starting point. | Gives you the value of object distance (u). |\n| \"In front of the mirror\" | On the reflecting side. | u is **negative** (Standard) or **positive** (RIP). |\n| \"At infinity\" | Extremely far away (e.g., Sun, Stars). | u = ∞, which means image distance v = f. |\n| \"Distant object\" | Very far away. | Treat object distance as u = ∞, so v = f. |\n| \"At Center of Curvature\" | Placed exactly at point C. | Object distance u = R = 2f. |\n| \"At the Focus\" | Placed exactly at point F. | Object distance u = f, which means image forms at v = ∞. |\n| \"Radius of Curvature\" | Distance from Pole to Center C. | Gives you R. You must calculate focal length as f = R/2. |\n| \"Moved towards...\" | Object position changed. | New distance u₂ = u₁ − change. |\n| \"Moved away...\" | Object position changed. | New distance u₂ = u₁ + change. |",
+    "<h3>Type 2: The \"Magnification Pivot\"</h3>",
+    "<p><b>What it is:</b> The question gives you the focal length (or radius) and says the image is \"n times magnified,\" but does not give you v.</p>",
+    "<p><b>Solving Approach:</b> Express v in terms of u using the magnification formula (e.g., v = 3u or v = −3u). Substitute this expression into the mirror formula so that u is the only unknown variable. <b>Crucial:</b> if the question does not specify if the image is real or virtual, you must solve for both cases separately.</p>",
 
-    "**3. Image Nature & Orientation Words**\n\n| When the question says... | It means (Physical Concept) | Mathematical Value / Sign Hint |\n|---|---|---|\n| \"Real image\" | Light rays actually cross. | v is (−), m is (−) (Standard) OR v is (+), m is (+) (RIP). |\n| \"Virtual image\" | Light rays only appear to cross. | v is (+), m is (+) (Standard) OR v is (−), m is (−) (RIP). |\n| \"Inverted\" | Upside down image. | Means the image is **Real**. |\n| \"Erect\" | Upright image. | Means the image is **Virtual**. |\n| \"Upright\" | Upright image. | Means the image is **Virtual**. |\n| \"On a screen\" | Image can be projected. | Means the image is **Real**. |\n| \"Behind the mirror\" | Inside the mirror world. | Means the image is **Virtual**. |\n| \"In front of the mirror\" | On the real world side. | Means the image is **Real** (for a real object). |",
-    "**4. Image Size & Magnification Words**\n\n| When the question says... | It means (Physical Concept) | Mathematical Value / Sign Hint |\n|---|---|---|\n| \"Magnified\" | Image is bigger than object. | Size |\n| \"Enlarged\" | Image is bigger than object. | Size |\n| \"Diminished\" | Image is smaller than object. | Size |\n| \"Same size\" | Image equals object size. | Size |\n| \"Magnified and Erect\" | Big and upright. | **Concave mirror only.** m = +n (Standard) or m = −n (RIP). |\n| \"Magnified and Inverted\" | Big and upside down. | **Concave mirror only.** m = −n (Standard) or m = +n (RIP). |\n| \"Diminished and Erect\" | Small and upright. | **Convex mirror only.** m = +n (Standard) or m = −n (RIP). |\n| \"n times\" | Scale factor of size. | Provides the value of magnification (m). |",
-    "**5. Advanced Relative Distance Phrases**\n\n| When the question says... | It means (Physical Concept) | Mathematical Value / Sign Hint |\n|---|---|---|\n| \"Distance between object and image\" | Space separating the two. | Mathematically means \\|v − u\\| = given distance |\n| \"Distance between object and focus\" | Space between object and F. | Mathematically means \\|u − f\\| = given distance |\n| \"Distance between image and focus\" | Space between image and F. | Mathematically means \\|v − f\\| = given distance |\n| \"Image coincides with object\" | Image forms exactly where object is. | Only happens at Center of Curvature (v = u = 2f). |",
+    "<h3>Type 3: The \"Two-Position Shift\"</h3>",
+    "<p><b>What it is:</b> The object is placed at one position, then moved to a second position.</p>",
+    "<p><b>Solving Approach:</b> Step 1 (First Position) — use the first set of data to find the focal length (f) of the mirror; the mirror doesn't change, so f stays constant. Step 2 (Second Position) — use the newly found f along with the new position data to solve for the final target.</p>",
 
-    "**3. Missing Magnification Clues (Signless Quantities)**",
-    "**\"The size of the image is half the size of the object\"**",
-    "- **Meaning**: The numerical value of magnification is |m| = 0.5.",
-    "- **How to decide the sign**:\n  - If the mirror is **convex**, it *must* be a virtual image (Cartesian: m = +0.5, RIP: m = −0.5).\n  - If the mirror is **concave**, it *must* be a real image (Cartesian: m = −0.5, RIP: m = +0.5) because concave mirrors only produce diminished images when the object is beyond the center of curvature, which always results in a real image.",
-    "**3. Hints about Magnification Sizes**",
-    "- **\"Magnified\" / \"Enlarged\"** → |m| > 1. (Can only be produced by a **Concave** mirror).",
-    "- **\"Diminished\" / \"Smaller\"** → |m| < 1. (Can be produced by both, but if it's virtual, it *must* be a **Convex** mirror).",
-    "- **\"Same size as the object\"** → |m| = 1. (Object is sitting exactly at the Center of Curvature, C, of a **Concave** mirror; u = 2f).",
-    "**4. Hints Embedded in Practical Applications**",
-    "**\"A dentist holds a small mirror...\"**",
-    "- **Meaning**: It is a **concave** mirror.",
-    "- **Hidden Hint**: Dentists use these to see an enlarged, upright view of teeth. This means the object (tooth) is placed between the focus and the pole (u < f), creating a **virtual, magnified** image.",
-    "**\"Used as a solar furnace / solar cooker mirror\"**",
-    "- **Meaning**: It is a **concave** mirror.",
-    "- **Hidden Hint**: Sunlight represents light coming from an infinite distance (u = ∞). The mirror converges these parallel rays to a single point, meaning the heat/cooker must be placed exactly at the focus (v = f).",
-    "**5. Multi-Step Physical Changes**",
-    "**\"An object is moved closer to the mirror by 10 cm...\"**",
-    "- **Meaning**: This implies a two-state problem where u₂ = u₁ − 10.",
-    "- **How to solve**: You must find the initial focal length or initial object distance using the first scenario before you can mathematically alter the distance for the second scenario."
+    "<h2>Part 2: The Hint Decoder (What Indicates What)</h2>",
+    "<p>When reading a physics problem, specific words act as hidden codes.</p>",
+
+    "<h3>1. Hints about the Mirror Type</h3>",
+    "<p><b>\"Shaving mirror\" or \"Makeup mirror\"</b> → It is a Concave mirror used to create an enlarged, virtual image.</p>",
+    "<p><b>\"Rear-view mirror\" or \"Driver's mirror\"</b> → It is a Convex mirror used to see a wide view of smaller, virtual images.</p>",
+    "<p><b>\"Reflecting surface is curved inwards\"</b> → Concave mirror.</p>",
+    "<p><b>\"Reflecting surface is curved outwards\"</b> → Convex mirror.</p>",
+
+    "<h3>2. Hints about Image Nature & Sign Rules</h3>",
+    "<table><tr><th>The Phrase in the Question</th><th>Standard Cartesian</th><th>Real-is-Positive (RIP)</th></tr><tr><td>\"Brought to a focus on a screen\"</td><td>Real Image → v negative, m negative</td><td>Real Image → v positive, m positive</td></tr><tr><td>\"Inverted image\"</td><td>Real Image → v negative, m negative</td><td>Real Image → v positive, m positive</td></tr><tr><td>\"Erect image\" or \"Upright\"</td><td>Virtual Image → v positive, m positive</td><td>Virtual Image → v negative, m negative</td></tr><tr><td>\"Formed behind the mirror\"</td><td>Virtual Image → v positive, m positive</td><td>Virtual Image → v negative, m negative</td></tr><tr><td>\"Formed in front of the mirror\"</td><td>Real Image → v negative, m negative</td><td>Real Image → v positive, m positive</td></tr></table>",
+
+    "<h3>Step 1: Find the Image Nature from the Keywords</h3>",
+    "<table><tr><th>If the question says...</th><th>...the Nature of the Image is</th></tr><tr><td>\"Erect\", \"Upright\", or \"Behind the mirror\"</td><td>Virtual</td></tr><tr><td>\"Inverted\", \"On a screen\", or \"In front of a concave mirror\"</td><td>Real</td></tr><tr><td>\"Convex mirror\" (for any real object)</td><td>Always Virtual (and smaller)</td></tr><tr><td>\"Magnified image by a convex mirror\"</td><td>Trick question! Convex mirrors cannot magnify</td></tr><tr><td>\"Diminished image by a concave mirror\"</td><td>Always Real</td></tr></table>",
+
+    "<h3>Step 2: Choose the Sign Based on Your Convention</h3>",
+    "<p><b>Option A: Standard Cartesian Convention (Most Common)</b></p>",
+    "<p><b>Real Image:</b> Image is upside down (inverted) → take magnification as negative (−m). Image is in front of the mirror → take image distance as negative (−v).</p>",
+    "<p><b>Virtual Image:</b> Image is upright (erect) → take magnification as positive (+m). Image is behind the mirror → take image distance as positive (+v).</p>",
+    "<p><b>Option B: Real-is-Positive (RIP) System</b></p>",
+    "<p><b>Real Image:</b> real things get a plus sign → take magnification as positive (+m). Image is real → take image distance as positive (+v).</p>",
+    "<p><b>Virtual Image:</b> virtual things get a minus sign → take magnification as negative (−m). Image is virtual → take image distance as negative (−v).</p>",
+
+    "<h3>A Quick Example to Clarify</h3>",
+    "<p><b>Question:</b> \"A concave mirror forms an image magnified 3 times on a screen.\"</p>",
+    "<p>1. Find Nature: the keyword \"on a screen\" means the image must be Real.</p>",
+    "<p>2. Apply Sign: In Standard Cartesian, take m = −3. In Real-is-Positive, take m = +3.</p>",
+
+    "<h2>Comprehensive Keyword Dictionary</h2>",
+
+    "<h3>1. Mirror Identification Words</h3>",
+    "<table><tr><th>When the question says...</th><th>Physical Concept</th><th>Mathematical Value / Sign Hint</th></tr><tr><td>\"Concave mirror\"</td><td>Converging mirror</td><td>f is negative (Standard) or positive (RIP)</td></tr><tr><td>\"Convex mirror\"</td><td>Diverging mirror</td><td>f is positive (Standard) or negative (RIP)</td></tr><tr><td>\"Diverging mirror\"</td><td>Convex mirror</td><td>f is positive (Standard) or negative (RIP)</td></tr><tr><td>\"Converging mirror\"</td><td>Concave mirror</td><td>f is negative (Standard) or positive (RIP)</td></tr><tr><td>\"Shaving / Makeup / Dentist's mirror\"</td><td>Concave mirror</td><td>Object is close (u < f). Image is virtual and magnified</td></tr><tr><td>\"Rear-view / Driver's mirror\"</td><td>Convex mirror</td><td>Image is always virtual, erect, and smaller</td></tr><tr><td>\"Security mirror\"</td><td>Convex mirror</td><td>Used in shops/intersections; image always smaller and virtual</td></tr><tr><td>\"Solar furnace / cooker\"</td><td>Concave mirror</td><td>Light comes from infinity (u = ∞). Heat focused at v = f</td></tr></table>",
+
+    "<h3>2. Object Position & Distance Words</h3>",
+    "<table><tr><th>When the question says...</th><th>Physical Concept</th><th>Mathematical Value / Sign Hint</th></tr><tr><td>\"An object is placed...\"</td><td>The starting point</td><td>Gives you the value of object distance (u)</td></tr><tr><td>\"In front of the mirror\"</td><td>On the reflecting side</td><td>u is negative (Standard) or positive (RIP)</td></tr><tr><td>\"At infinity\"</td><td>Extremely far away (e.g. Sun, Stars)</td><td>u = ∞, image distance v = f</td></tr><tr><td>\"Distant object\"</td><td>Very far away</td><td>Treat u = ∞, so v = f</td></tr><tr><td>\"At Center of Curvature\"</td><td>Placed exactly at point C</td><td>u = R = 2f</td></tr><tr><td>\"At the Focus\"</td><td>Placed exactly at point F</td><td>u = f, image forms at v = ∞</td></tr><tr><td>\"Radius of Curvature\"</td><td>Distance from Pole to Center C</td><td>Gives you R. Calculate f = R/2</td></tr><tr><td>\"Moved towards...\"</td><td>Object position changed</td><td>New distance u₂ = u₁ − change</td></tr><tr><td>\"Moved away...\"</td><td>Object position changed</td><td>New distance u₂ = u₁ + change</td></tr></table>",
+
+    "<h3>3. Image Nature & Orientation Words</h3>",
+    "<table><tr><th>When the question says...</th><th>Physical Concept</th><th>Mathematical Value / Sign Hint</th></tr><tr><td>\"Real image\"</td><td>Light rays actually cross</td><td>v is (−), m is (−) Standard OR v is (+), m is (+) RIP</td></tr><tr><td>\"Virtual image\"</td><td>Light rays only appear to cross</td><td>v is (+), m is (+) Standard OR v is (−), m is (−) RIP</td></tr><tr><td>\"Inverted\"</td><td>Upside down image</td><td>Means the image is Real</td></tr><tr><td>\"Erect\" / \"Upright\"</td><td>Upright image</td><td>Means the image is Virtual</td></tr><tr><td>\"On a screen\"</td><td>Image can be projected</td><td>Means the image is Real</td></tr><tr><td>\"Behind the mirror\"</td><td>Inside the mirror world</td><td>Means the image is Virtual</td></tr><tr><td>\"In front of the mirror\"</td><td>On the real world side</td><td>Means the image is Real (for a real object)</td></tr></table>",
+
+    "<h3>4. Image Size & Magnification Words</h3>",
+    "<table><tr><th>When the question says...</th><th>Physical Concept</th><th>Mathematical Value / Sign Hint</th></tr><tr><td>\"Magnified\" / \"Enlarged\"</td><td>Image is bigger than object</td><td>Size</td></tr><tr><td>\"Diminished\"</td><td>Image is smaller than object</td><td>Size</td></tr><tr><td>\"Same size\"</td><td>Image equals object size</td><td>Size</td></tr><tr><td>\"Magnified and Erect\"</td><td>Big and upright</td><td>Concave mirror only. m = +n (Standard) or m = −n (RIP)</td></tr><tr><td>\"Magnified and Inverted\"</td><td>Big and upside down</td><td>Concave mirror only. m = −n (Standard) or m = +n (RIP)</td></tr><tr><td>\"Diminished and Erect\"</td><td>Small and upright</td><td>Convex mirror only. m = +n (Standard) or m = −n (RIP)</td></tr><tr><td>\"n times\"</td><td>Scale factor of size</td><td>Provides the value of magnification (m)</td></tr></table>",
+
+    "<h3>5. Advanced Relative Distance Phrases</h3>",
+    "<table><tr><th>When the question says...</th><th>Physical Concept</th><th>Mathematical Value / Sign Hint</th></tr><tr><td>\"Distance between object and image\"</td><td>Space separating the two</td><td>|v − u| = given distance</td></tr><tr><td>\"Distance between object and focus\"</td><td>Space between object and F</td><td>|u − f| = given distance</td></tr><tr><td>\"Distance between image and focus\"</td><td>Space between image and F</td><td>|v − f| = given distance</td></tr><tr><td>\"Image coincides with object\"</td><td>Image forms exactly where object is</td><td>Only at Center of Curvature (v = u = 2f)</td></tr></table>"
   ]
 }

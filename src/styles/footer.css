@@ -1,0 +1,30 @@
+footer{
+
+    margin-top:60px;
+
+    padding:30px;
+
+    text-align:center;
+
+    background:
+
+    linear-gradient(
+        180deg,
+        #0c1132,
+        #080b23
+    );
+
+    border-top:1px solid rgba(99,102,241,.25);
+
+    color:#cbd5e1;
+}
+
+footer p{
+
+    color:#cbd5e1;
+}
+
+footer strong{
+
+    color:#a78bfa;
+}
