@@ -321,3 +321,77 @@
         padding:9px 4px;
     }
 }
+
+/* ==========================================
+   ACCESS REQUESTS (ADMIN PANEL) & SEARCH GATE
+========================================== */
+
+.admin-request-row{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+    padding:12px 0;
+    border-bottom:1px solid var(--border, #e2e8f0);
+}
+
+.admin-request-row:last-child{
+    border-bottom:none;
+}
+
+.admin-request-info{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    font-size:.9rem;
+}
+
+.admin-request-email{
+    color:#64748b;
+}
+
+.admin-request-date{
+    color:#94a3b8;
+    font-size:.78rem;
+}
+
+.request-status{
+    font-size:.72rem;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    padding:2px 8px;
+    border-radius:999px;
+    background:#f1f5f9;
+    color:#475569;
+}
+
+.request-status.status-pending{
+    background:#fef3c7;
+    color:#92400e;
+}
+
+.request-status.status-approved{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.request-status.status-rejected{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.admin-request-actions{
+    display:flex;
+    gap:8px;
+}
+
+.search-gate{
+    text-align:center;
+    padding:10px;
+    font-size:.95rem;
+}
+
+.search-gate a{
+    color:#2563eb;
+    font-weight:600;
+}

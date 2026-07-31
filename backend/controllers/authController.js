@@ -1,6 +1,7 @@
 const crypto = require("crypto");
 const QRCode = require("qrcode");
 
+const logger = require("../utils/logger");
 const User = require("../models/User");
 const {
   hashPassword,
@@ -17,6 +18,15 @@ const {
   generateTwoFactorSecret,
   verifyTwoFactorCode,
 } = require("../utils/twoFactor");
+const {
+  isAdminEmail,
+  getAccessStatus,
+  requestAccess,
+  listRequests,
+  approve,
+  reject,
+  revoke,
+} = require("../services/accessService");
 const { COOKIE_NAME } = require("../middleware/auth");
 
 const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
@@ -27,6 +37,7 @@ function toPublicUser(user) {
     name: user.name,
     email: user.email,
     twoFactorEnabled: !!user.twoFactorEnabled,
+    isAdmin: isAdminEmail(user.email),
   };
 }
 
@@ -97,6 +108,16 @@ async function register(req, res, next) {
     const token = signAccessToken(user);
 
     setAuthCookies(res, token);
+
+    if (!isAdminEmail(user.email)) {
+      try {
+        await requestAccess({ email: user.email, name: user.name });
+      } catch (err) {
+        logger.warn("Could not auto-create access request on register", {
+          message: err.message,
+        });
+      }
+    }
 
     res.status(201).json({
       success: true,
@@ -236,7 +257,10 @@ function getMe(req, res) {
 
   return res.json({
     success: true,
-    user: req.user,
+    user: {
+      ...req.user,
+      isAdmin: isAdminEmail(req.user.email),
+    },
   });
 }
 
@@ -513,6 +537,113 @@ async function resetPassword(req, res, next) {
   }
 }
 
+async function getAccessStatusHandler(req, res) {
+  const email = req.user?.email || req.query.email || "";
+
+  const status = await getAccessStatus(email);
+
+  return res.json({
+    success: true,
+    ...status,
+  });
+}
+
+async function requestAccessHandler(req, res, next) {
+  try {
+    const email = req.user?.email || req.body.email;
+    const name = req.user?.name || req.body.name;
+
+    if (!email) {
+      return res.status(400).json({
+        success: false,
+        message: "Email is required",
+      });
+    }
+
+    const result = await requestAccess({ email, name });
+
+    if (result.alreadyApproved) {
+      return res.json({
+        success: true,
+        message: "Your account already has access",
+        approved: true,
+      });
+    }
+
+    return res.json({
+      success: true,
+      message: "Access request submitted. You will be able to view content once approved.",
+      approved: false,
+      pending: true,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function adminListRequests(req, res, next) {
+  try {
+    const { status } = req.query;
+
+    const requests = await listRequests({ status });
+
+    return res.json({
+      success: true,
+      requests,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function adminApprove(req, res, next) {
+  try {
+    const { email } = req.body;
+
+    const approvedEmail = await approve(email);
+
+    return res.json({
+      success: true,
+      message: `${approvedEmail} has been approved`,
+      email: approvedEmail,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function adminReject(req, res, next) {
+  try {
+    const { email } = req.body;
+
+    const rejectedEmail = await reject(email);
+
+    return res.json({
+      success: true,
+      message: `${rejectedEmail} has been rejected`,
+      email: rejectedEmail,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+async function adminRevoke(req, res, next) {
+  try {
+    const { email } = req.body;
+
+    const revokedEmail = await revoke(email);
+
+    return res.json({
+      success: true,
+      message: `Access revoked for ${revokedEmail}`,
+      email: revokedEmail,
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
 module.exports = {
   register,
   login,
@@ -525,5 +656,11 @@ module.exports = {
   disableTwoFactor,
   forgotPassword,
   resetPassword,
+  getAccessStatusHandler,
+  requestAccessHandler,
+  adminListRequests,
+  adminApprove,
+  adminReject,
+  adminRevoke,
   ACCESS_TTL,
 };

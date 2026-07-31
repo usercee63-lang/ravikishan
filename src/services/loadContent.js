@@ -1,4 +1,3 @@
-
 import { API_BASE } from "../constants/api";
 
 const FALLBACK_BASE = "http://localhost:5000";
@@ -9,6 +8,16 @@ async function fetchContent(base, subject, chapter, topic) {
   const response = await fetch(
     `${base}/api/content/${subject}/${chapter}/${topic}`
   );
+
+  if (response.status === 401 || response.status === 403) {
+    const error = new Error(
+      response.status === 403
+        ? "Your account has not been approved yet."
+        : "Please log in to view this content."
+    );
+    error.status = response.status;
+    throw error;
+  }
 
   if (!response.ok) {
     throw new Error(
@@ -31,7 +40,7 @@ export async function loadContent(subject, chapter, topic) {
   try {
     data = await fetchContent(API_BASE, subject, chapter, topic);
   } catch (err) {
-    if (API_BASE === FALLBACK_BASE) {
+    if (err.status || API_BASE === FALLBACK_BASE) {
       throw err;
     }
 

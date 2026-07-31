@@ -1,5 +1,6 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, Navigate } from "react-router-dom";
 import { useNavigation } from "../hooks/useNavigation";
+import AccessGate from "../components/contents/AccessGate";
 
 function TopicPage() {
   const { subjectId, chapterId } = useParams();
@@ -8,7 +9,15 @@ function TopicPage() {
 
   if (loading) return <h2>Loading...</h2>;
 
-  if (error) return <h2>{error}</h2>;
+  if (error?.status === 401) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (error?.status === 403) {
+    return <AccessGate />;
+  }
+
+  if (error) return <h2>{error.message}</h2>;
 
   if (!data) return <h2>No data found.</h2>;
 

@@ -18,7 +18,7 @@ export function useContent(subject, chapter, topic) {
 
         setContent(result);
       } catch (err) {
-        setError(err.message);
+        setError(err);
       } finally {
         setLoading(false);
       }

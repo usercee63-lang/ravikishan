@@ -18,7 +18,7 @@ export function useNavigation(subject) {
 
         setData(result);
       } catch (err) {
-        setError(err.message);
+        setError(err);
       } finally {
         setLoading(false);
       }

@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const { search } = require("../services/searchService");
+const { loadUser } = require("../middleware/auth");
+const { requireAccess } = require("../middleware/access");
 
-router.get("/", async (req, res) => {
+router.get("/", loadUser, requireAccess, async (req, res) => {
   try {
     const { subject, q } = req.query;
 

@@ -27,6 +27,12 @@ async function fetchNavigation(subjectId) {
     try {
       const res = await fetch(url);
 
+      if (res.status === 401 || res.status === 403) {
+        const err = new Error(`Access required (${res.status})`);
+        err.status = res.status;
+        throw err;
+      }
+
       if (!res.ok) {
         throw new Error(`${url} responded ${res.status}`);
       }
@@ -34,6 +40,10 @@ async function fetchNavigation(subjectId) {
       return await res.json();
     } catch (err) {
       lastError = err;
+
+      if (err.status) {
+        throw err;
+      }
     }
   }
 
@@ -43,6 +53,7 @@ async function fetchNavigation(subjectId) {
 function SearchBar() {
   const [query, setQuery] = useState("");
   const [index, setIndex] = useState([]);
+  const [gated, setGated] = useState(null);
 
   useEffect(() => {
     async function buildIndex() {
@@ -75,6 +86,11 @@ function SearchBar() {
           });
 
         } catch (err) {
+          if (err.status === 401 || err.status === 403) {
+            setGated(err.status);
+            return;
+          }
+
           console.error(subject.id, err);
         }
       }
@@ -100,35 +116,45 @@ function SearchBar() {
   return (
     <div className="search-container">
 
-      <input
-        className="global-search"
-        placeholder="🔍 Search subjects, chapters or topics..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-      />
+      {gated ? (
+        <p className="search-gate">
+          <Link to="/login">
+            🔐 Log in to search subjects, chapters and topics
+          </Link>
+        </p>
+      ) : (
+        <>
+          <input
+            className="global-search"
+            placeholder="🔍 Search subjects, chapters or topics..."
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+          />
 
-      {filtered.length > 0 && (
+          {filtered.length > 0 && (
 
-        <div className="search-results">
+            <div className="search-results">
 
-          {filtered.map((item, i) => (
+              {filtered.map((item, i) => (
 
-            <Link
-              key={i}
-              to={item.url}
-              className="search-item"
-              onClick={() => setQuery("")}
-            >
-              <strong>{item.title}</strong>
+                <Link
+                  key={i}
+                  to={item.url}
+                  className="search-item"
+                  onClick={() => setQuery("")}
+                >
+                  <strong>{item.title}</strong>
 
-              <span>{item.type}</span>
+                  <span>{item.type}</span>
 
-            </Link>
+                </Link>
 
-          ))}
+              ))}
 
-        </div>
+            </div>
 
+          )}
+        </>
       )}
 
     </div>

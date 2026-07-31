@@ -14,9 +14,16 @@ const {
   disableTwoFactor,
   forgotPassword,
   resetPassword,
+  getAccessStatusHandler,
+  requestAccessHandler,
+  adminListRequests,
+  adminApprove,
+  adminReject,
+  adminRevoke,
 } = require("../controllers/authController");
 const ensureDbConnection = require("../middleware/connectDb");
 const { loadUser, requireAuth, getTokenFromRequest } = require("../middleware/auth");
+const { requireAdmin } = require("../middleware/access");
 const {
   loginLimiter,
   registerLimiter,
@@ -55,6 +62,51 @@ router.post("/refresh", (req, res, next) => {
 }, refresh);
 
 router.post("/logout", logout);
+
+router.get("/access/status", loadUser, getAccessStatusHandler);
+
+router.post(
+  "/request-access",
+  ensureDbConnection,
+  loadUser,
+  requestAccessHandler
+);
+
+router.get(
+  "/admin/requests",
+  ensureDbConnection,
+  loadUser,
+  requireAuth,
+  requireAdmin,
+  adminListRequests
+);
+
+router.post(
+  "/admin/approve",
+  ensureDbConnection,
+  loadUser,
+  requireAuth,
+  requireAdmin,
+  adminApprove
+);
+
+router.post(
+  "/admin/reject",
+  ensureDbConnection,
+  loadUser,
+  requireAuth,
+  requireAdmin,
+  adminReject
+);
+
+router.post(
+  "/admin/revoke",
+  ensureDbConnection,
+  loadUser,
+  requireAuth,
+  requireAdmin,
+  adminRevoke
+);
 
 router.post(
   "/forgot-password",

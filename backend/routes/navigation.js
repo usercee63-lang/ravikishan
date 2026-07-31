@@ -2,8 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const { getNavigation } = require("../services/navigationService");
+const { loadUser } = require("../middleware/auth");
+const { requireAccess } = require("../middleware/access");
 
-router.get("/:subject", async (req, res) => {
+router.get("/:subject", loadUser, requireAccess, async (req, res) => {
   try {
     const data = await getNavigation(req.params.subject);
 

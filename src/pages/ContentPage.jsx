@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 import { useContent } from "../hooks/useContent";
@@ -6,6 +6,7 @@ import { useReadingHistory } from "../hooks/useReadingHistory";
 import { useProgress } from "../hooks/useProgress";
 
 import ComingSoon from "../components/contents/ComingSoon";
+import AccessGate from "../components/contents/AccessGate";
 import ReadingProgress from "../components/contents/ReadingProgress";
 import ReadingTime from "../components/contents/ReadingTime";
 import ProgressButton from "../components/contents/ProgressButton";
@@ -61,6 +62,14 @@ function ContentPage() {
   );
 
   if (loading) return <h2>Loading...</h2>;
+
+  if (error?.status === 401) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (error?.status === 403) {
+    return <AccessGate />;
+  }
 
   if (error) {
     return (
