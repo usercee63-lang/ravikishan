@@ -1,8 +1,7 @@
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useNavigation } from "../../hooks/useNavigation";
 
 function Breadcrumb() {
-  const location = useLocation();
   const { subjectId, chapterId, topicId } = useParams();
 
   const { data } = useNavigation(subjectId);

@@ -1,30 +1,37 @@
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import {
   getTopicProgress,
   setTopicProgress,
 } from "../utils/progress";
 
 export function useProgress(subject, chapter, topic) {
-  const [status, setStatus] = useState("not-started");
+  const [status, setStatus] = useState(() =>
+    getTopicProgress(subject, chapter, topic)
+  );
 
-  useEffect(() => {
-    if (!subject || !chapter || !topic) return;
+  const [prevKey, setPrevKey] = useState(null);
 
-    setStatus(
-      getTopicProgress(subject, chapter, topic)
-    );
-  }, [subject, chapter, topic]);
+  const currentKey = subject && chapter && topic
+    ? `${subject}/${chapter}/${topic}`
+    : null;
 
-  function updateStatus(newStatus) {
-    setTopicProgress(
-      subject,
-      chapter,
-      topic,
-      newStatus
-    );
+  if (prevKey !== currentKey) {
+    setPrevKey(currentKey);
 
-    setStatus(newStatus);
+    if (currentKey) {
+      setStatus(getTopicProgress(subject, chapter, topic));
+    }
   }
+
+  const updateStatus = useCallback(
+    (newStatus) => {
+      if (!subject || !chapter || !topic) return;
+
+      setTopicProgress(subject, chapter, topic, newStatus);
+      setStatus(newStatus);
+    },
+    [subject, chapter, topic]
+  );
 
   return {
     status,

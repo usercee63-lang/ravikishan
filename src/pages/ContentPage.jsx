@@ -9,7 +9,7 @@ import ComingSoon from "../components/contents/ComingSoon";
 import ReadingProgress from "../components/contents/ReadingProgress";
 import ReadingTime from "../components/contents/ReadingTime";
 import ProgressButton from "../components/contents/ProgressButton";
-import ContentRenderer from "../components/contents/ContentRenderer";
+import ContentRenderer from "../renderers/ContentRenderer";
 import ContentExtras from "../components/contents/ContentExtras";
 import ContentTabs from "../components/contents/ContentTabs";
 import Numerical from "../components/contents/Numerical";
@@ -46,7 +46,7 @@ function ContentPage() {
     if (content) {
       updateStatus("in-progress");
     }
-  }, [content]);
+  }, [content, updateStatus]);
 
   useReadingHistory(
     subjectId,
@@ -57,49 +57,50 @@ function ContentPage() {
 
   if (loading) return <h2>Loading...</h2>;
 
-if (error) {
-  return (
-    <div className="content-page zoom">
-      <div className="content-card">
-        <h2>🚧 This section is coming soon 🚀</h2>
+  if (error) {
+    return (
+      <div className="content-page zoom">
+        <div className="content-card">
+          <h2>🚧 This section is coming soon 🚀</h2>
 
-        <p
-          style={{
-            marginTop: 20,
-            color: "#64748b",
-            fontSize: "18px",
-          }}
-        >
-          Content for this topic has not been added yet.
-        </p>
+          <p
+            style={{
+              marginTop: 20,
+              color: "#64748b",
+              fontSize: "18px",
+            }}
+          >
+            Content for this topic has not been added yet.
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-if (!content) {
-  return (
-    <div className="content-page zoom">
-      <div className="content-card">
-        <h2>🚧 This section is coming soon 🚀</h2>
+  if (!content) {
+    return (
+      <div className="content-page zoom">
+        <div className="content-card">
+          <h2>🚧 This section is coming soon 🚀</h2>
 
-        <p
-          style={{
-            marginTop: 20,
-            color: "#64748b",
-            fontSize: "18px",
-          }}
-        >
-          Content for this topic has not been added yet.
-        </p>
+          <p
+            style={{
+              marginTop: 20,
+              color: "#64748b",
+              fontSize: "18px",
+            }}
+          >
+            Content for this topic has not been added yet.
+          </p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-if (content?.comingSoon) {
-  return <ComingSoon />;
-}
+  if (content?.comingSoon) {
+    return <ComingSoon />;
+  }
+
   return (
     <>
       <ReadingProgress />
@@ -126,52 +127,51 @@ if (content?.comingSoon) {
             tabs={tabs}
           />
 
-         {activeTab === "notes" && (
-  <>
-    <ContentRenderer content={content} />
-    <ContentExtras content={content} />
-  </>
-)}
+          {activeTab === "notes" && (
+            <>
+              <ContentRenderer content={content} />
+              <ContentExtras content={content} />
+            </>
+          )}
 
-{activeTab === "numerical" && (
-  <Numerical numericals={content.numericals} />
-)}
+          {activeTab === "numerical" && (
+            <Numerical numericals={content.numericals} />
+          )}
 
-{["flashcards", "quiz", "video", "mindmap"].includes(activeTab) && (
-  <div
-    style={{
-      marginTop: 30,
-      padding: 40,
-      textAlign: "center",
-      borderRadius: 16,
-      background: "#f8fafc",
-      border: "1px solid #e2e8f0",
-    }}
-  >
-    <h2 style={{ marginBottom: 15 }}>
-      {tabs.find(tab => tab.id === activeTab)?.title}
-    </h2>
+          {["flashcards", "quiz", "video", "mindmap"].includes(activeTab) && (
+            <div
+              style={{
+                marginTop: 30,
+                padding: 40,
+                textAlign: "center",
+                borderRadius: 16,
+                background: "#f8fafc",
+                border: "1px solid #e2e8f0",
+              }}
+            >
+              <h2 style={{ marginBottom: 15 }}>
+                {tabs.find(tab => tab.id === activeTab)?.title}
+              </h2>
 
-    <p
-      style={{
-        fontSize: 18,
-        color: "#475569",
-        marginBottom: 10,
-      }}
-    >
-      🚧 This section is coming soon 🚀
-    </p>
+              <p
+                style={{
+                  fontSize: 18,
+                  color: "#475569",
+                  marginBottom: 10,
+                }}
+              >
+                🚧 This section is coming soon 🚀
+              </p>
 
-    <p
-      style={{
-        color: "#64748b",
-      }}
-    >
-      This feature is under development and will be available in a future update.
-    </p>
-  </div>
-)}
-              
+              <p
+                style={{
+                  color: "#64748b",
+                }}
+              >
+                This feature is under development and will be available in a future update.
+              </p>
+            </div>
+          )}
 
           <AiTutorButton content={content} />
 

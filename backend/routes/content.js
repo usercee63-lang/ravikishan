@@ -14,7 +14,7 @@ router.get("/:subject/:chapter/:topic", (req, res) => {
     );
 
     res.json(data);
-  } catch (err) {
+  } catch {
     res.json({
       comingSoon: true,
       title: req.params.topic,

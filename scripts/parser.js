@@ -35,7 +35,8 @@ export async function parseContent() {
         } catch (err) {
 
             throw new Error(
-                `Error reading ${file}\n${err.message}`
+                `Error reading ${file}\n${err.message}`,
+                { cause: err }
             );
 
         }

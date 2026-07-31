@@ -1,5 +1,5 @@
 // src/components/ContentViewer.jsx
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import NotesRenderer from "../renderers/NotesRenderer";
 import KeyPointsRenderer from "../renderers/KeyPointsRenderer";
 import ExamplesRenderer from "../renderers/ExamplesRenderer";
@@ -19,20 +19,34 @@ import {
 } from "../utils/offlineStorage";
 
 export default function ContentViewer({ subject, chapter, topic, content }) {
-  const [isBookmarked, setIsBookmarked] = useState(false);
-  const [isCompleted, setIsCompleted] = useState(false);
-  const [userNote, setUserNote] = useState("");
+  const [isBookmarked, setIsBookmarked] = useState(() =>
+    isTopicBookmarked(subject, chapter, topic)
+  );
+  const [isCompleted, setIsCompleted] = useState(() =>
+    Boolean(getStoredProgress()[`${subject}-${chapter}-${topic}`]?.completed)
+  );
+  const [userNote, setUserNote] = useState(() =>
+    getStoredUserNote(subject, chapter, topic)
+  );
   const [noteSavedMessage, setNoteSavedMessage] = useState(false);
   const [aiModalOpen, setAiModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("content");
 
-  useEffect(() => {
-    if (!subject || !chapter || !topic) return;
-    setIsBookmarked(isTopicBookmarked(subject, chapter, topic));
-    setIsCompleted(Boolean(getStoredProgress()[`${subject}-${chapter}-${topic}`]?.completed));
-    setUserNote(getStoredUserNote(subject, chapter, topic));
-    setActiveTab("content");
-  }, [subject, chapter, topic]);
+  const [prevKey, setPrevKey] = useState(null);
+  const currentKey = subject && chapter && topic
+    ? `${subject}/${chapter}/${topic}`
+    : null;
+
+  if (prevKey !== currentKey) {
+    setPrevKey(currentKey);
+
+    if (currentKey) {
+      setIsBookmarked(isTopicBookmarked(subject, chapter, topic));
+      setIsCompleted(Boolean(getStoredProgress()[`${subject}-${chapter}-${topic}`]?.completed));
+      setUserNote(getStoredUserNote(subject, chapter, topic));
+      setActiveTab("content");
+    }
+  }
 
   if (!content) {
     return <p className="p-8 text-center text-slate-400">Select a topic to view content.</p>;

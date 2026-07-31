@@ -1,14 +1,47 @@
 const mongoose = require("mongoose");
 
+const logger = require("../utils/logger");
+
+const CONNECT_TIMEOUT_MS = 5000;
+
+mongoose.connection.on("error", (err) => {
+  logger.error("MongoDB connection error", {
+    message: err.message,
+    stack: err.stack,
+  });
+});
+
+mongoose.connection.on("disconnected", () => {
+  logger.warn("MongoDB disconnected");
+});
+
+async function waitForConnection(timeoutMs = CONNECT_TIMEOUT_MS) {
+  const start = Date.now();
+
+  while (mongoose.connection.readyState !== 1) {
+    if (Date.now() - start > timeoutMs) {
+      throw new Error("MongoDB connection not established");
+    }
+
+    await new Promise((resolve) => setTimeout(resolve, 100));
+  }
+}
+
 async function connectDB() {
   try {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI, {
+      serverSelectionTimeoutMS: CONNECT_TIMEOUT_MS,
+    });
 
-    console.log("✅ MongoDB Connected");
+    await waitForConnection(CONNECT_TIMEOUT_MS);
+
+    logger.info("MongoDB Connected");
   } catch (err) {
-    console.error("❌ MongoDB Connection Failed");
-    console.error(err.message);
-    process.exit(1);
+    logger.error("MongoDB Connection Failed", {
+      message: err.message,
+      stack: err.stack,
+    });
+    throw err;
   }
 }
 

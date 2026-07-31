@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 
+import CreditBanner from "../components/CreditBanner";
+
 const subjects = [
   { id: "physics", name: "Physics", icon: "⚛️", color: "#3b82f6" },
   { id: "chemistry", name: "Chemistry", icon: "🧪", color: "#10b981" },

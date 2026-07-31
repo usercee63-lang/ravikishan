@@ -1,27 +1,21 @@
 const fs = require("fs");
 const path = require("path");
 
+const logger = require("../utils/logger");
+
+const DATA_DIR = path.join(__dirname, "..", "data copy");
+
 function getContent(subject, chapter, topic) {
   const filePath = path.join(
-    __dirname,
-    "..",
-    "data copy",
+    DATA_DIR,
     "content",
     subject,
     chapter,
     `${topic}.json`
   );
 
-  console.log({
-  subject,
-  chapter,
-  topic,
-});
-
-console.log("Looking for:", filePath);
-console.log("Exists:", fs.existsSync(filePath));
-
   if (!fs.existsSync(filePath)) {
+    logger.debug("Content file not found", { filePath });
     throw new Error("Content not found");
   }
 

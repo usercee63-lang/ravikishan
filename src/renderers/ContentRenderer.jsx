@@ -1,19 +1,14 @@
-import NotesRenderer from "../../renderers/NotesRenderer";
+import NotesRenderer from "./NotesRenderer";
+import SummaryRenderer from "./SummaryRenderer";
+import FormulaRenderer from "./FormulaRenderer";
+import DiagramRenderer from "./DiagramRenderer";
+import ExamplesRenderer from "./ExamplesRenderer";
+import PracticeRenderer from "./PracticeRenderer";
+import KeyPointsRenderer from "./KeyPointsRenderer";
+import Image from "../components/contents/Image";
+import Table from "../components/contents/Table";
 
-import ComingSoon from "./ComingSoon";
-import Image from "./Image";
-import Table from "./Table";
-import Summary from "./Summary";
-import Formula from "./Formula";
-import Diagram from "./Diagram";
-import Example from "./Example";
-import Practice from "./Practice";
-import KeyPoints from "./KeyPoints";
-
-export default function ContentRenderer({
-  content,
-  activeTab,
-}) {
+export default function ContentRenderer({ content }) {
   return (
     <>
       {content.notes && (
@@ -29,27 +24,27 @@ export default function ContentRenderer({
       )}
 
       {content.summary && (
-        <Summary summary={content.summary} />
+        <SummaryRenderer summary={content.summary} />
       )}
 
       {content.formulas && (
-        <Formula formulas={content.formulas} />
+        <FormulaRenderer formulas={content.formulas} />
       )}
 
       {content.diagrams && (
-        <Diagram diagrams={content.diagrams} />
+        <DiagramRenderer diagrams={content.diagrams} />
       )}
 
       {content.examples && (
-        <Example examples={content.examples} />
+        <ExamplesRenderer examples={content.examples} />
       )}
 
       {content.practice && (
-        <Practice practice={content.practice} />
+        <PracticeRenderer practice={content.practice} />
       )}
 
       {content.keyPoints && (
-        <KeyPoints keyPoints={content.keyPoints} />
+        <KeyPointsRenderer keyPoints={content.keyPoints} />
       )}
     </>
   );
