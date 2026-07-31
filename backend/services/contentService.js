@@ -1,10 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const mongoose = require("mongoose");
-
 const logger = require("../utils/logger");
 const StudyMaterial = require("../models/StudyMaterial");
+const { isDbUp } = require("../config/db");
 
 const DATA_DIR = path.join(__dirname, "..", "data copy");
 
@@ -25,16 +24,17 @@ function readContentFile(subject, chapter, topic) {
 }
 
 async function getContentFromDb(subject, chapter, topic) {
-  const doc = await StudyMaterial.findOne(
-    { subject, chapter, topic },
-    { _id: 0, data: 1 }
-  ).lean();
+  const doc = await StudyMaterial.findOne({
+    where: { subject, chapter, topic },
+    attributes: ["data"],
+    raw: true,
+  });
 
   return doc ? doc.data : null;
 }
 
 async function getContent(subject, chapter, topic) {
-  if (mongoose.connection.readyState === 1) {
+  if (isDbUp()) {
     try {
       const fromDb = await getContentFromDb(subject, chapter, topic);
 

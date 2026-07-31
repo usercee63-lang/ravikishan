@@ -1,68 +1,66 @@
-const mongoose = require("mongoose");
-const dns = require("dns");
+const { Sequelize } = require("sequelize");
 
 const logger = require("../utils/logger");
 
-const CONNECT_TIMEOUT_MS = Number(process.env.MONGO_CONNECT_TIMEOUT_MS) || 8000;
-const MAX_RETRIES = Number(process.env.MONGO_MAX_RETRIES) || 5;
-const RETRY_BASE_DELAY_MS = Number(process.env.MONGO_RETRY_DELAY_MS) || 1000;
+const CONNECT_TIMEOUT_MS = Number(process.env.PG_CONNECT_TIMEOUT_MS) || 8000;
+const MAX_RETRIES = Number(process.env.PG_MAX_RETRIES) || 5;
+const RETRY_BASE_DELAY_MS = Number(process.env.PG_RETRY_DELAY_MS) || 1000;
+const USE_SSL = process.env.PG_SSL !== "false";
 
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
+  dialect: "postgres",
+  logging: false,
+  dialectOptions: USE_SSL
+    ? { ssl: { require: true, rejectUnauthorized: false } }
+    : {},
+  pool: { max: 5, min: 0, idle: 10000, acquire: 30000 },
+});
 
+let dbUp = false;
 let connecting = null;
 
-mongoose.connection.on("connected", () => {
-  logger.info("MongoDB connected");
-});
-
-mongoose.connection.on("error", (err) => {
-  logger.error("MongoDB connection error", {
-    message: err.message,
-    stack: err.stack,
-  });
-});
-
-mongoose.connection.on("disconnected", () => {
-  logger.warn("MongoDB disconnected");
-});
-
-mongoose.connection.on("reconnected", () => {
-  logger.info("MongoDB reconnected");
-});
+function isDbUp() {
+  return dbUp;
+}
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function waitForConnection(timeoutMs = CONNECT_TIMEOUT_MS) {
-  const start = Date.now();
+async function syncModels() {
+  require("../models/User");
+  require("../models/StudyMaterial");
+  require("../models/Subject");
+  require("../models/AccessPolicy");
+  require("../models/AccessRequest");
 
-  while (mongoose.connection.readyState !== 1) {
-    if (Date.now() - start > timeoutMs) {
-      throw new Error("MongoDB connection not established");
-    }
-
-    await sleep(100);
-  }
+  await sequelize.sync();
 }
 
 async function connectWithRetry(attempt = 1) {
   try {
-    await mongoose.connect(process.env.MONGO_URI, {
-      serverSelectionTimeoutMS: CONNECT_TIMEOUT_MS,
-      connectTimeoutMS: CONNECT_TIMEOUT_MS,
-      socketTimeoutMS: 60000,
-      maxPoolSize: 10,
-      minPoolSize: 0,
-      family: 4,
-    });
+    await Promise.race([
+      sequelize.authenticate(),
+      new Promise((_, reject) =>
+        setTimeout(
+          () => reject(new Error("PostgreSQL connection timed out")),
+          CONNECT_TIMEOUT_MS
+        )
+      ),
+    ]);
 
-    await waitForConnection(CONNECT_TIMEOUT_MS);
+    await syncModels();
 
-    return mongoose.connection;
+    dbUp = true;
+
+    logger.info("PostgreSQL connected");
+
+    return sequelize;
   } catch (err) {
+    dbUp = false;
+
     if (attempt >= MAX_RETRIES) {
-      logger.error("MongoDB connection failed after retries", {
+      logger.error("PostgreSQL connection failed after retries", {
         message: err.message,
         attempts: attempt,
       });
@@ -72,7 +70,7 @@ async function connectWithRetry(attempt = 1) {
     const delay = RETRY_BASE_DELAY_MS * 2 ** (attempt - 1);
 
     logger.warn(
-      `MongoDB connection attempt ${attempt} failed, retrying in ${delay}ms`,
+      `PostgreSQL connection attempt ${attempt} failed, retrying in ${delay}ms`,
       { message: err.message }
     );
 
@@ -83,8 +81,8 @@ async function connectWithRetry(attempt = 1) {
 }
 
 async function connectDB() {
-  if (mongoose.connection.readyState === 1) {
-    return mongoose.connection;
+  if (dbUp) {
+    return sequelize;
   }
 
   if (connecting) {
@@ -98,4 +96,14 @@ async function connectDB() {
   return connecting;
 }
 
-module.exports = connectDB;
+async function closeDB() {
+  await sequelize.close();
+  dbUp = false;
+}
+
+module.exports = {
+  sequelize,
+  connectDB,
+  closeDB,
+  isDbUp,
+};

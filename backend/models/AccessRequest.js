@@ -1,37 +1,55 @@
-const mongoose = require("mongoose");
+const { DataTypes, Model } = require("sequelize");
 
-const accessRequestSchema = new mongoose.Schema(
+const { sequelize } = require("../config/db");
+
+class AccessRequest extends Model {}
+
+AccessRequest.init(
   {
     email: {
-      type: String,
-      required: true,
+      type: DataTypes.STRING(255),
+      allowNull: false,
       unique: true,
-      lowercase: true,
-      trim: true,
-      index: true,
+      validate: {
+        isEmail: true,
+      },
     },
 
     name: {
-      type: String,
-      trim: true,
-      default: "",
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      defaultValue: "",
     },
 
     status: {
-      type: String,
-      enum: ["pending", "approved", "rejected"],
-      default: "pending",
-      index: true,
+      type: DataTypes.STRING(20),
+      allowNull: false,
+      defaultValue: "pending",
+      validate: {
+        isIn: [["pending", "approved", "rejected"]],
+      },
     },
 
     requestedAt: {
-      type: Date,
-      default: Date.now,
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
   },
   {
+    sequelize,
+    modelName: "AccessRequest",
+    tableName: "AccessRequests",
     timestamps: true,
+    indexes: [
+      {
+        fields: ["status"],
+      },
+      {
+        fields: ["requestedAt"],
+      },
+    ],
   }
 );
 
-module.exports = mongoose.model("AccessRequest", accessRequestSchema);
+module.exports = AccessRequest;

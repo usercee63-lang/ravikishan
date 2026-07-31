@@ -1,6 +1,4 @@
-const mongoose = require("mongoose");
-
-const connectDB = require("../config/db");
+const { connectDB, isDbUp } = require("../config/db");
 
 const COOLDOWN_MS = 30000;
 const MAX_FAILURES = 3;
@@ -16,7 +14,7 @@ function isThrottled() {
 }
 
 async function ensureDbConnection(req, res, next) {
-  if (mongoose.connection.readyState === 1) {
+  if (isDbUp()) {
     return next();
   }
 

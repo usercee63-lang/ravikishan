@@ -1,26 +1,39 @@
-const mongoose = require("mongoose");
+const { DataTypes, Model } = require("sequelize");
 
-const accessPolicySchema = new mongoose.Schema(
+const { sequelize } = require("../config/db");
+
+class AccessPolicy extends Model {
+  static async getOrCreate() {
+    let policy = await this.findOne();
+
+    if (!policy) {
+      policy = await this.create({ id: 1, approvedEmails: [] });
+    }
+
+    return policy;
+  }
+}
+
+AccessPolicy.init(
   {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      defaultValue: 1,
+    },
+
     approvedEmails: {
-      type: [String],
-      default: [],
-      index: true,
+      type: DataTypes.JSONB,
+      allowNull: false,
+      defaultValue: [],
     },
   },
   {
+    sequelize,
+    modelName: "AccessPolicy",
+    tableName: "AccessPolicies",
     timestamps: true,
   }
 );
 
-accessPolicySchema.statics.getOrCreate = async function () {
-  let policy = await this.findOne().lean();
-
-  if (!policy) {
-    policy = await this.create({ approvedEmails: [] });
-  }
-
-  return policy;
-};
-
-module.exports = mongoose.model("AccessPolicy", accessPolicySchema);
+module.exports = AccessPolicy;

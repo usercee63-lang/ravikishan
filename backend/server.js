@@ -6,7 +6,7 @@ const session = require("express-session");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 
-const connectDB = require("./config/db");
+const { connectDB } = require("./config/db");
 const logger = require("./utils/logger");
 const {
   notFound,

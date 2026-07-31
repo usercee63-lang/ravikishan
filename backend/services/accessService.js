@@ -44,7 +44,7 @@ async function getAccessStatus(email) {
 
   const [approved, request] = await Promise.all([
     isApproved(normalized),
-    AccessRequest.findOne({ email: normalized }).lean(),
+    AccessRequest.findOne({ where: { email: normalized }, raw: true }),
   ]);
 
   return {
@@ -67,32 +67,29 @@ async function requestAccess({ email, name }) {
     return { alreadyApproved: true };
   }
 
-  await AccessRequest.updateOne(
-    { email: normalized },
-    {
-      $set: {
-        name: String(name || "").trim().slice(0, 100),
-        status: "pending",
-        requestedAt: new Date(),
-      },
-    },
-    { upsert: true }
-  );
+  await AccessRequest.upsert({
+    email: normalized,
+    name: String(name || "").trim().slice(0, 100),
+    status: "pending",
+    requestedAt: new Date(),
+  });
 
   return { alreadyApproved: false };
 }
 
 async function listRequests({ status } = {}) {
-  const filter = {};
+  const where = {};
 
   if (status && ["pending", "approved", "rejected"].includes(status)) {
-    filter.status = status;
+    where.status = status;
   }
 
-  return AccessRequest.find(filter)
-    .sort({ requestedAt: -1 })
-    .limit(200)
-    .lean();
+  return AccessRequest.findAll({
+    where,
+    order: [["requestedAt", "DESC"]],
+    limit: 200,
+    raw: true,
+  });
 }
 
 async function approve(email) {
@@ -102,20 +99,22 @@ async function approve(email) {
     throw new Error("A valid email is required");
   }
 
-  const policy = await AccessPolicy.getOrCreate();
+  const [policy, existing] = await Promise.all([
+    AccessPolicy.getOrCreate(),
+    AccessRequest.findOne({ where: { email: normalized } }),
+  ]);
 
   if (!policy.approvedEmails.includes(normalized)) {
-    await AccessPolicy.updateOne(
-      { _id: policy._id },
-      { $addToSet: { approvedEmails: normalized } }
-    );
+    policy.approvedEmails = [...policy.approvedEmails, normalized];
+    await policy.save();
   }
 
-  await AccessRequest.updateOne(
-    { email: normalized },
-    { $set: { status: "approved" } },
-    { upsert: true }
-  );
+  await AccessRequest.upsert({
+    email: normalized,
+    name: existing ? existing.name : "",
+    status: "approved",
+    requestedAt: existing ? existing.requestedAt : new Date(),
+  });
 
   return normalized;
 }
@@ -127,11 +126,16 @@ async function reject(email) {
     throw new Error("A valid email is required");
   }
 
-  await AccessRequest.updateOne(
-    { email: normalized },
-    { $set: { status: "rejected" } },
-    { upsert: true }
-  );
+  const existing = await AccessRequest.findOne({
+    where: { email: normalized },
+  });
+
+  await AccessRequest.upsert({
+    email: normalized,
+    name: existing ? existing.name : "",
+    status: "rejected",
+    requestedAt: existing ? existing.requestedAt : new Date(),
+  });
 
   return normalized;
 }
@@ -145,10 +149,12 @@ async function revoke(email) {
 
   const policy = await AccessPolicy.getOrCreate();
 
-  await AccessPolicy.updateOne(
-    { _id: policy._id },
-    { $pull: { approvedEmails: normalized } }
-  );
+  if (policy.approvedEmails.includes(normalized)) {
+    policy.approvedEmails = policy.approvedEmails.filter(
+      (approved) => approved !== normalized
+    );
+    await policy.save();
+  }
 
   return normalized;
 }

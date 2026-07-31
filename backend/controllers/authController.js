@@ -1,6 +1,8 @@
 const crypto = require("crypto");
 const QRCode = require("qrcode");
 
+const { Op } = require("sequelize");
+
 const logger = require("../utils/logger");
 const User = require("../models/User");
 const {
@@ -33,7 +35,7 @@ const COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
 
 function toPublicUser(user) {
   return {
-    id: user._id,
+    id: user.id,
     name: user.name,
     email: user.email,
     twoFactorEnabled: !!user.twoFactorEnabled,
@@ -86,7 +88,9 @@ async function register(req, res, next) {
 
     const normalizedEmail = String(email).trim().toLowerCase();
 
-    const existingUser = await User.findOne({ email: normalizedEmail });
+    const existingUser = await User.findOne({
+      where: { email: normalizedEmail },
+    });
 
     if (existingUser) {
       return res.status(400).json({
@@ -142,8 +146,8 @@ async function login(req, res, next) {
     }
 
     const user = await User.findOne({
-      email: String(email).trim().toLowerCase(),
-    }).select("+twoFactorSecret");
+      where: { email: String(email).trim().toLowerCase() },
+    });
 
     if (!user || !verifyPassword(password, user.password)) {
       return res.status(401).json({
@@ -208,7 +212,7 @@ async function loginWithTwoFactor(req, res, next) {
       });
     }
 
-    const user = await User.findById(decoded.id).select("+twoFactorSecret");
+    const user = await User.findByPk(decoded.id);
 
     if (!user || !user.twoFactorEnabled) {
       return res.status(401).json({
@@ -313,7 +317,7 @@ function logout(req, res, next) {
 
 async function setupTwoFactor(req, res, next) {
   try {
-    const user = await User.findById(req.user.id).select("+twoFactorSecret");
+    const user = await User.findByPk(req.user.id);
 
     if (!user) {
       return res.status(404).json({
@@ -359,7 +363,7 @@ async function verifyTwoFactor(req, res, next) {
       });
     }
 
-    const user = await User.findById(req.user.id).select("+twoFactorSecret");
+    const user = await User.findByPk(req.user.id);
 
     if (!user) {
       return res.status(404).json({
@@ -417,7 +421,7 @@ async function disableTwoFactor(req, res, next) {
       });
     }
 
-    const user = await User.findById(req.user.id).select("+twoFactorSecret");
+    const user = await User.findByPk(req.user.id);
 
     if (!user) {
       return res.status(404).json({
@@ -463,7 +467,7 @@ async function forgotPassword(req, res, next) {
     }
 
     const user = await User.findOne({
-      email: String(email).trim().toLowerCase(),
+      where: { email: String(email).trim().toLowerCase() },
     });
 
     if (!user) {
@@ -512,9 +516,11 @@ async function resetPassword(req, res, next) {
     }
 
     const user = await User.findOne({
-      resetPasswordToken: hashToken(String(token)),
-      resetPasswordExpires: { $gt: new Date() },
-    }).select("+resetPasswordToken +resetPasswordExpires");
+      where: {
+        resetPasswordToken: hashToken(String(token)),
+        resetPasswordExpires: { [Op.gt]: new Date() },
+      },
+    });
 
     if (!user) {
       return res.status(400).json({

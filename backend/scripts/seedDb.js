@@ -3,9 +3,7 @@ require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
 
-const mongoose = require("mongoose");
-
-const connectDB = require("../config/db");
+const { sequelize, connectDB, closeDB } = require("../config/db");
 const logger = require("../utils/logger");
 const Subject = require("../models/Subject");
 const StudyMaterial = require("../models/StudyMaterial");
@@ -34,31 +32,22 @@ async function seedNavigation() {
     .readdirSync(navDir)
     .filter((file) => file.endsWith(".json"));
 
-  const ops = navFiles.map((file) => {
+  let count = 0;
+
+  for (const file of navFiles) {
     const nav = JSON.parse(fs.readFileSync(path.join(navDir, file), "utf8"));
     const id = path.basename(file, ".json");
 
-    return {
-      updateOne: {
-        filter: { id },
-        update: {
-          $set: {
-            name: nav.name,
-            chapters: nav.chapters,
-          },
-        },
-        upsert: true,
-      },
-    };
-  });
+    await Subject.upsert({
+      id,
+      name: nav.name,
+      chapters: nav.chapters,
+    });
 
-  if (ops.length === 0) {
-    return 0;
+    count += 1;
   }
 
-  const result = await Subject.bulkWrite(ops);
-
-  return result.upsertedCount + result.modifiedCount;
+  return count;
 }
 
 async function seedContent() {
@@ -70,8 +59,8 @@ async function seedContent() {
   }
 
   const files = walk(contentRoot);
-  const ops = [];
   let skipped = 0;
+  let upserted = 0;
 
   for (const file of files) {
     const rel = path.relative(contentRoot, file).split(path.sep);
@@ -99,34 +88,22 @@ async function seedContent() {
       continue;
     }
 
-    ops.push({
-      updateOne: {
-        filter: { subject, chapter, topic },
-        update: {
-          $set: {
-            title: json.title || topic,
-            data: json,
-          },
-        },
-        upsert: true,
-      },
+    await StudyMaterial.upsert({
+      subject,
+      chapter,
+      topic,
+      title: json.title || topic,
+      data: json,
     });
+
+    upserted += 1;
   }
 
-  if (ops.length === 0) {
-    return { upserted: 0, skipped };
-  }
-
-  const result = await StudyMaterial.bulkWrite(ops);
-
-  return {
-    upserted: result.upsertedCount + result.modifiedCount,
-    skipped,
-  };
+  return { upserted, skipped };
 }
 
 async function seed() {
-  logger.info("Connecting to MongoDB...");
+  logger.info("Connecting to PostgreSQL...");
 
   await connectDB();
 
@@ -137,15 +114,17 @@ async function seed() {
     navigationDocuments: navCount,
     contentDocuments: contentResult.upserted,
     skippedFiles: contentResult.skipped,
-    database: mongoose.connection.name,
+    database: sequelize.getDatabaseName(),
   });
 
-  await mongoose.connection.close();
+  await closeDB();
 }
 
 seed()
   .then(() => process.exit(0))
   .catch((err) => {
     logger.error("Seeding failed", { message: err.message, stack: err.stack });
-    process.exit(1);
+    closeDB()
+      .catch(() => {})
+      .finally(() => process.exit(1));
   });

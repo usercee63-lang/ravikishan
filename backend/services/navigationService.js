@@ -1,10 +1,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const mongoose = require("mongoose");
-
 const logger = require("../utils/logger");
 const Subject = require("../models/Subject");
+const { isDbUp } = require("../config/db");
 
 const DATA_DIR = path.join(__dirname, "..", "data copy");
 
@@ -20,10 +19,11 @@ function readNavigationFile(subject) {
 }
 
 async function getNavigationFromDb(subject) {
-  const doc = await Subject.findOne(
-    { id: subject },
-    { _id: 0, name: 1, chapters: 1 }
-  ).lean();
+  const doc = await Subject.findOne({
+    where: { id: subject },
+    attributes: ["name", "chapters"],
+    raw: true,
+  });
 
   if (!doc) {
     return null;
@@ -36,7 +36,7 @@ async function getNavigationFromDb(subject) {
 }
 
 async function getNavigation(subject) {
-  if (mongoose.connection.readyState === 1) {
+  if (isDbUp()) {
     try {
       const fromDb = await getNavigationFromDb(subject);
 

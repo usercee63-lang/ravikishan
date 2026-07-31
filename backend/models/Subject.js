@@ -1,47 +1,33 @@
-const mongoose = require("mongoose");
+const { DataTypes, Model } = require("sequelize");
 
-const topicSchema = new mongoose.Schema(
-  {
-    id: { type: String, required: true, trim: true },
-    title: { type: String, trim: true },
-    important: { type: Boolean, default: false },
-  },
-  { _id: false }
-);
+const { sequelize } = require("../config/db");
 
-const chapterSchema = new mongoose.Schema(
-  {
-    id: { type: String, required: true, trim: true },
-    title: { type: String, trim: true },
-    description: { type: String, default: "" },
-    topics: { type: [topicSchema], default: [] },
-  },
-  { _id: false }
-);
+class Subject extends Model {}
 
-const subjectSchema = new mongoose.Schema(
+Subject.init(
   {
     id: {
-      type: String,
-      required: true,
-      unique: true,
-      trim: true,
+      type: DataTypes.STRING(255),
+      primaryKey: true,
     },
 
     name: {
-      type: String,
-      required: true,
-      trim: true,
+      type: DataTypes.STRING(255),
+      allowNull: false,
     },
 
     chapters: {
-      type: [chapterSchema],
-      default: [],
+      type: DataTypes.JSONB,
+      allowNull: false,
+      defaultValue: [],
     },
   },
   {
+    sequelize,
+    modelName: "Subject",
+    tableName: "Subjects",
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Subject", subjectSchema);
+module.exports = Subject;

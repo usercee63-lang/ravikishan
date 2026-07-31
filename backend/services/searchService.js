@@ -1,10 +1,11 @@
 const fs = require("fs");
 const path = require("path");
 
-const mongoose = require("mongoose");
+const { Op, literal } = require("sequelize");
 
 const logger = require("../utils/logger");
 const StudyMaterial = require("../models/StudyMaterial");
+const { isDbUp } = require("../config/db");
 
 const DATA_DIR = path.join(__dirname, "..", "data copy");
 
@@ -63,21 +64,25 @@ function searchFiles(subject, query) {
 
 async function searchDb(subject, query) {
   const needle = String(query || "").toLowerCase().trim();
+  const escaped = needle.replace(/'/g, "''");
 
-  const filter = { subject };
+  const or = [{ title: { [Op.iLike]: `%${needle}%` } }];
 
   if (needle) {
-    filter.$or = [
-      { title: { $regex: needle, $options: "i" } },
-      { "data.notes": { $elemMatch: { $regex: needle, $options: "i" } } },
-      { "data.summary": { $regex: needle, $options: "i" } },
-    ];
+    or.push(literal(`data->>'summary' ILIKE '%${escaped}%'`));
+    or.push(
+      literal(
+        `EXISTS (SELECT 1 FROM jsonb_array_elements_text(data->'notes') AS n WHERE n ILIKE '%${escaped}%')`
+      )
+    );
   }
 
-  const docs = await StudyMaterial.find(filter)
-    .select({ _id: 0, title: 1, chapter: 1, topic: 1 })
-    .limit(50)
-    .lean();
+  const docs = await StudyMaterial.findAll({
+    where: { subject, [Op.or]: or },
+    attributes: ["title", "chapter", "topic"],
+    limit: 50,
+    raw: true,
+  });
 
   return docs.map((doc) => ({
     title: doc.title || doc.topic,
@@ -88,7 +93,7 @@ async function searchDb(subject, query) {
 }
 
 async function search(subject, query) {
-  if (mongoose.connection.readyState === 1) {
+  if (isDbUp()) {
     try {
       return await searchDb(subject, query);
     } catch (err) {

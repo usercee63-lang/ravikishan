@@ -1,9 +1,8 @@
-const mongoose = require("mongoose");
-
+const { isDbUp } = require("../config/db");
 const { isAdminEmail, isApproved } = require("../services/accessService");
 
 async function requireAccess(req, res, next) {
-  if (mongoose.connection.readyState !== 1) {
+  if (!isDbUp()) {
     return next();
   }
 
