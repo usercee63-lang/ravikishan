@@ -77,6 +77,11 @@
           "id": "n1",
           "title": "N1"
         },
+        {
+          "id": "on1",
+          "title": "Mirrors and Lenses",
+          "important": true
+        },
          {
           "id": "n2",
           "title": "N2"

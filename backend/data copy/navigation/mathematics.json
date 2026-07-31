@@ -53,9 +53,15 @@
           "title":  "Limits5.3"
          },
          { "id": "limit5.01",
-           "title":"Limit5.01"
+           "title":"LIMITS — Infinite Limits, Indeterminate Forms & Evaluation of Limits (Step-by-Step)",
+            "important":true
 
-         }
+         },
+         {
+        "id": "limitc",
+        "title": "TRIGONOMETRIC LIMITS — First-Principle Substitution Method (x → a type problems)",
+        "important":true
+        }
         ]
     },
      {
@@ -63,6 +69,30 @@
       "title": "Matrix (Algebra)",
       "description": "A rectangular array or grid of numbers, symbols, or expressions arranged in rows and columns, used to represent linear transformations, systems of linear equations, and physical states.",
       "topics": [
+        
+
+       
+       
+
+       
+          {
+          "id": "minors,cofactors,determinants",
+          "title":  "  Matrix 5.2 - Theory: Minors, Cofactors, Determinants   ",
+          "important": true
+        },
+        {
+        "id": "evaluate-determinants",
+        "title": "Evaluate Determinants",
+        "important":true
+        },
+         {
+        "id": "without-expand",
+        "title": "Without Expand",
+        "important":true
+        },
+        
+        
+        
         {
         "id": "matrix.0001",
         "title": "Matrix.0001",
@@ -75,7 +105,8 @@
         },
         {
           "id": "matrix.5.02",
-          "title":  "  Matrix 5.02     "
+          "title":  "  Matrix 5.02     ",
+          "important": true
         },
          {
           "id": "matrix5.2",
