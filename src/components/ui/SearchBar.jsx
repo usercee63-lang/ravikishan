@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 
+import { API_BASE } from "../../constants/api";
+
 const subjects = [
   { id: "physics", title: "Physics" },
   { id: "chemistry", title: "Chemistry" },
@@ -9,6 +11,34 @@ const subjects = [
   { id: "english", title: "English" },
   { id: "nepali", title: "Nepali" }
 ];
+
+const FALLBACK_BASE = "http://localhost:5000";
+
+async function fetchNavigation(subjectId) {
+  const urls = [
+    `${API_BASE}/api/navigation/${subjectId}`,
+    `${FALLBACK_BASE}/api/navigation/${subjectId}`,
+    `/data/navigation/${subjectId}.json`,
+  ];
+
+  let lastError;
+
+  for (const url of urls) {
+    try {
+      const res = await fetch(url);
+
+      if (!res.ok) {
+        throw new Error(`${url} responded ${res.status}`);
+      }
+
+      return await res.json();
+    } catch (err) {
+      lastError = err;
+    }
+  }
+
+  throw lastError;
+}
 
 function SearchBar() {
   const [query, setQuery] = useState("");
@@ -20,8 +50,7 @@ function SearchBar() {
 
       for (const subject of subjects) {
         try {
-          const res = await fetch(`/data/navigation/${subject.id}.json`);
-          const data = await res.json();
+          const data = await fetchNavigation(subject.id);
 
           results.push({
             type: "subject",

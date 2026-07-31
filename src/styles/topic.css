@@ -40,11 +40,17 @@
     transform:translateX(8px);
 }
 
+.topic-item:hover .topic-title{
+    color:white;
+}
+
 .topic-title{
   display:flex;
   justify-content:space-between;
   align-items:center;
   gap:10px;
+  color:var(--text);
+  font-weight:600;
 }
 
 .important-badge{

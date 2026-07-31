@@ -1,13 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  getNavigation,
-} = require("../services/navigationService");
+const { getNavigation } = require("../services/navigationService");
 
-router.get("/:subject", (req, res) => {
+router.get("/:subject", async (req, res) => {
   try {
-    const data = getNavigation(req.params.subject);
+    const data = await getNavigation(req.params.subject);
 
     res.json(data);
   } catch (err) {

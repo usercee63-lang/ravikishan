@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
 const connectDB = require("./config/db");
 const logger = require("./utils/logger");
@@ -11,6 +12,7 @@ const {
   notFound,
   errorHandler,
 } = require("./middleware/errorHandler");
+const { globalLimiter } = require("./middleware/rateLimit");
 
 const searchRoutes = require("./routes/search");
 const contentRoutes = require("./routes/content");
@@ -20,8 +22,33 @@ const aiRoutes = require("./routes/ai");
 
 const app = express();
 
-app.use(cors());
+app.set("trust proxy", 1);
+
+const allowedOrigins = (process.env.CORS_ORIGINS || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      if (origin.endsWith(".trycloudflare.com")) {
+        return callback(null, true);
+      }
+
+      return callback(null, true);
+    },
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+app.use(cookieParser());
+app.use(globalLimiter);
 
 app.use(
   morgan("combined", {

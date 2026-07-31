@@ -5,19 +5,24 @@
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "seed": "node scripts/seedDb.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.6.1",
     "express-session": "^1.19.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.8.0",
     "morgan": "^1.11.0",
+    "qrcode": "^1.5.4",
+    "speakeasy": "^2.0.0",
     "winston": "^3.19.0"
   },
   "devDependencies": {

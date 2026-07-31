@@ -9,20 +9,32 @@ import Home from "./pages/Home";
 import ChapterPage from "./pages/ChapterPage";
 import TopicPage from "./pages/TopicPage";
 import ContentPage from "./pages/ContentPage";
+import BookmarksPage from "./pages/BookmarksPage";
+import AuthPage from "./pages/AuthPage";
+import Settings from "./pages/Settings";
 
 function App() {
   const location = useLocation();
+
+  const isAuthRoute =
+    location.pathname === "/login" || location.pathname === "/settings";
 
   return (
     <>
       <Header />
 
-      {location.pathname !== "/" && <Breadcrumb />}
+      {!isAuthRoute && location.pathname !== "/" && <Breadcrumb />}
 
-      <SearchBar />
+      {!isAuthRoute && <SearchBar />}
 
       <Routes>
         <Route path="/" element={<Home />} />
+
+        <Route path="/bookmarks" element={<BookmarksPage />} />
+
+        <Route path="/login" element={<AuthPage />} />
+
+        <Route path="/settings" element={<Settings />} />
 
         <Route
           path="/subject/:subjectId"

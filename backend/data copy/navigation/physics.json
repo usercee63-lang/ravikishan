@@ -103,6 +103,10 @@
           "title": "Heat and Temperature"
         },
         {
+          "id": "temperature-scales",
+          "title": "Temperature Scales"
+        },
+        {
           "id": "quantity-of-heat",
           "title": "Quantity of Heat"
         },

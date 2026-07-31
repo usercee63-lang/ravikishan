@@ -12,19 +12,51 @@
           "title": "Physical Quantity",
           "important": true
         },
+         {
+          "id": "dimensions",
+          "title": "Dimensions"
+        },
+        {
+          "id": "errors",
+          "title": "Errors"
+        },
+        {
+          "id": "m,p-errors",
+          "title": "M,P Errors"
+        },
+         {
+          "id": "s-f-rules",
+          "title": "S F Rules"
+        },
+         {
+          "id": "numerical-p",
+          "title": "Numerical P"
+        },
+        {
+          "id": "c,q-and-mcq",
+          "title": "C,Q and MCQ"
+        },
+         {
+          "id": "l,s,a,q-and-n",
+          "title": "L,S,A,Q and N"
+        },
+        {
+          "id": "dimensional-analysis-practice-set-1",
+          "title":  "Dimensional Analysis - Practice Set 1"
+        },
+        {
+          "id": "dimensional-analysis-practice-set-2",
+          "title": "Dimensional Analysis - Practice Set 2"
+        },
         {
           "id": "vector",
           "title": "Vector"
-        },
-        {
-          "id": "     ",
-          "title":  "       "
         }
+
        
       ]
     },
-
-    {
+     {
       "id": "optics",
       "title": "Optics",
 
@@ -36,9 +68,31 @@
         {
           "id": "refraction-at-plane-surface",
           "title": "Refraction at Plane Surface"
+        },
+        {
+          "id": "opticsn1",
+          "title": "Optics N1"
+        },
+        {
+          "id": "n1",
+          "title": "N1"
+        },
+        {
+          "id": "on1",
+          "title": "Mirrors and Lenses",
+          "important": true
+        },
+         {
+          "id": "n2",
+          "title": "N2"
+        },
+         {
+          "id": "n3",
+          "title": "N3"
         }
       ]
     },
+
     {
       "id": "heat",
       "title": "Heat",
@@ -49,8 +103,17 @@
           "title": "Heat and Temperature"
         },
         {
+          "id": "temperature-scales",
+          "title": "Temperature Scales"
+        },
+        {
           "id": "quantity-of-heat",
           "title": "Quantity of Heat"
+        },
+        {
+          "id": "h-and-t",
+          "title": "HEAT AND TEMPERATURE — Chapter 9, Class 11 Physics (Concepts, All 5 Scales & Step-by-Step Numericals)",
+          "important": true
         }
       ]
     }

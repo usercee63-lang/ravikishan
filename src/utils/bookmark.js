@@ -46,3 +46,16 @@ export function toggleBookmark(item) {
 
   return !exists;
 }
+
+export function removeBookmark(subject, chapter, topic) {
+  const bookmarks = getBookmarks().filter(
+    (b) =>
+      !(
+        b.subject === subject &&
+        b.chapter === chapter &&
+        b.topic === topic
+      )
+  );
+
+  localStorage.setItem(KEY, JSON.stringify(bookmarks));
+}

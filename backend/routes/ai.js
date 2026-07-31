@@ -3,8 +3,9 @@ const express = require("express");
 const router = express.Router();
 
 const { chatWithTutor } = require("../services/aiService");
+const { aiLimiter } = require("../middleware/rateLimit");
 
-router.post("/tutor", async (req, res) => {
+router.post("/tutor", aiLimiter, async (req, res) => {
   const { title, notes, messages } = req.body || {};
 
   if (!Array.isArray(messages) || messages.length === 0) {

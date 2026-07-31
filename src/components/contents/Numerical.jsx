@@ -4,7 +4,7 @@ function Numerical({ numericals }) {
   }
 
   return (
-    <div>
+    <div className="numericals-list">
       <h2>🧮 Numericals</h2>
 
       {numericals.map((item, index) => (

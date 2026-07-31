@@ -1,7 +1,10 @@
 const fs = require("fs");
 const path = require("path");
 
+const mongoose = require("mongoose");
+
 const logger = require("../utils/logger");
+const StudyMaterial = require("../models/StudyMaterial");
 
 const DATA_DIR = path.join(__dirname, "..", "data copy");
 
@@ -21,7 +24,7 @@ function walk(dir, files = []) {
   return files;
 }
 
-function search(subject, query) {
+function searchFiles(subject, query) {
   const root = path.join(DATA_DIR, "content", subject);
 
   if (!fs.existsSync(root)) {
@@ -29,9 +32,7 @@ function search(subject, query) {
   }
 
   const files = walk(root);
-
   const results = [];
-
   const needle = query.toLowerCase();
 
   for (const file of files) {
@@ -58,6 +59,47 @@ function search(subject, query) {
   }
 
   return results;
+}
+
+async function searchDb(subject, query) {
+  const needle = String(query || "").toLowerCase().trim();
+
+  const filter = { subject };
+
+  if (needle) {
+    filter.$or = [
+      { title: { $regex: needle, $options: "i" } },
+      { "data.notes": { $elemMatch: { $regex: needle, $options: "i" } } },
+      { "data.summary": { $regex: needle, $options: "i" } },
+    ];
+  }
+
+  const docs = await StudyMaterial.find(filter)
+    .select({ _id: 0, title: 1, chapter: 1, topic: 1 })
+    .limit(50)
+    .lean();
+
+  return docs.map((doc) => ({
+    title: doc.title || doc.topic,
+    chapter: doc.chapter,
+    topic: doc.topic,
+    path: `${doc.chapter}/${doc.topic}.json`,
+  }));
+}
+
+async function search(subject, query) {
+  if (mongoose.connection.readyState === 1) {
+    try {
+      return await searchDb(subject, query);
+    } catch (err) {
+      logger.warn("Database search failed, using file fallback", {
+        subject,
+        message: err.message,
+      });
+    }
+  }
+
+  return searchFiles(subject, query);
 }
 
 module.exports = {

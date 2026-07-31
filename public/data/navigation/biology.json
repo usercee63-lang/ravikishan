@@ -2,36 +2,48 @@
   "name": "Biology",
   "chapters": [
     {
-      "id": "cell biology",
-      "title": "Cell Biology",
+      "id": "botany",
+      "title": "Botany",
       "description": "",
       "topics": [
         {
-          "id": "cell structure",
-          "title": "Cell Structure"
+          "id": "bio-molecules",
+          "title": "Bio-Molecules"
         },
         {
-          "id": "cell division",
-          "title": "Cell Division"
+          "id": "cell-biology",
+          "title": "Cell Biology"
         },
         {
-          "id": "     ",
-          "title":  "       "
+          "id": "botany5.1",
+          "title":  "Botany5.1"
         }
       ]
     },
     {
-      "id": "human biology",
-      "title": "Human Biology",
+      "id": "zoology",
+      "title": "Zoology",
       "description": "",
       "topics": [
         {
-          "id": "human body systems",
-          "title": "Human Body Systems"
+          "id": "protista",
+          "title": "Protista"
         },
         {
-          "id": "health and disease",
-          "title": "Health and Disease"
+          "id": "plasmodium",
+          "title": "Plasmodium"
+        },
+         {
+          "id": "life-cycle",
+          "title": "Life Cycle"
+        },
+         {
+          "id": "similarities-and-differences",
+          "title": "Similarities and Differences"
+        },
+         {
+          "id": "rkn",
+          "title": "Rkn"
         }
       ]
     }

@@ -1,13 +1,11 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  getContent,
-} = require("../services/contentService");
+const { getContent } = require("../services/contentService");
 
-router.get("/:subject/:chapter/:topic", (req, res) => {
+router.get("/:subject/:chapter/:topic", async (req, res) => {
   try {
-    const data = getContent(
+    const data = await getContent(
       req.params.subject,
       req.params.chapter,
       req.params.topic
@@ -23,7 +21,7 @@ router.get("/:subject/:chapter/:topic", (req, res) => {
       flashcards: [],
       quiz: [],
       video: [],
-      mindmap: [],
+      mindmap: null,
     });
   }
 });

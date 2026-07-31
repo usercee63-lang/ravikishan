@@ -13,6 +13,11 @@ import ContentRenderer from "../renderers/ContentRenderer";
 import ContentExtras from "../components/contents/ContentExtras";
 import ContentTabs from "../components/contents/ContentTabs";
 import Numerical from "../components/contents/Numerical";
+import Video from "../components/contents/Video";
+import MindMap from "../components/contents/MindMap";
+import FlashcardDeck from "../components/flashcards/FlashcardDeck";
+import Quiz from "../components/quiz/Quiz";
+import BookmarkButton from "../components/contents/BookmarkButton";
 import CreditBanner from "../components/CreditBanner";
 import AiTutorButton from "../components/AiTutorButton";
 
@@ -119,6 +124,13 @@ function ContentPage() {
             updateStatus={updateStatus}
           />
 
+          <BookmarkButton
+            subject={subjectId}
+            chapter={chapterId}
+            topic={topicId}
+            title={content.title}
+          />
+
           <CreditBanner />
 
           <ContentTabs
@@ -128,50 +140,53 @@ function ContentPage() {
           />
 
           {activeTab === "notes" && (
-            <>
+            <div className="tab-pane tab-pane-notes">
               <ContentRenderer content={content} />
               <ContentExtras content={content} />
-            </>
+            </div>
           )}
 
           {activeTab === "numerical" && (
-            <Numerical numericals={content.numericals} />
-          )}
-
-          {["flashcards", "quiz", "video", "mindmap"].includes(activeTab) && (
-            <div
-              style={{
-                marginTop: 30,
-                padding: 40,
-                textAlign: "center",
-                borderRadius: 16,
-                background: "#f8fafc",
-                border: "1px solid #e2e8f0",
-              }}
-            >
-              <h2 style={{ marginBottom: 15 }}>
-                {tabs.find(tab => tab.id === activeTab)?.title}
-              </h2>
-
-              <p
-                style={{
-                  fontSize: 18,
-                  color: "#475569",
-                  marginBottom: 10,
-                }}
-              >
-                🚧 This section is coming soon 🚀
-              </p>
-
-              <p
-                style={{
-                  color: "#64748b",
-                }}
-              >
-                This feature is under development and will be available in a future update.
-              </p>
+            <div className="tab-pane">
+              <Numerical numericals={content.numericals} />
             </div>
           )}
+
+          {activeTab === "flashcards" &&
+            (content.flashcards?.length ? (
+              <div className="tab-pane tab-pane-flashcards">
+                <FlashcardDeck cards={content.flashcards} />
+              </div>
+            ) : (
+              <ComingSoon />
+            ))}
+
+          {activeTab === "quiz" &&
+            (content.quiz?.length ? (
+              <div className="tab-pane tab-pane-quiz">
+                <Quiz questions={content.quiz} />
+              </div>
+            ) : (
+              <ComingSoon />
+            ))}
+
+          {activeTab === "video" &&
+            (content.videos?.length || content.video?.length ? (
+              <div className="tab-pane tab-pane-video">
+                <Video videos={content.videos?.length ? content.videos : content.video} />
+              </div>
+            ) : (
+              <ComingSoon />
+            ))}
+
+          {activeTab === "mindmap" &&
+            (content.mindmap ? (
+              <div className="tab-pane tab-pane-mindmap">
+                <MindMap mindmap={content.mindmap} />
+              </div>
+            ) : (
+              <ComingSoon />
+            ))}
 
           <AiTutorButton content={content} />
 
