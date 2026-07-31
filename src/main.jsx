@@ -27,3 +27,4 @@ createRoot(document.getElementById("root")).render(
 import "./styles/header.css";
 import "./styles/breadcrumb.css";
 import "./styles/search.css";
+import "./styles/ai.css";

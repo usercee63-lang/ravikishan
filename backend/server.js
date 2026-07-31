@@ -16,6 +16,7 @@ const searchRoutes = require("./routes/search");
 const contentRoutes = require("./routes/content");
 const navigationRoutes = require("./routes/navigation");
 const authRoutes = require("./routes/auth");
+const aiRoutes = require("./routes/ai");
 
 const app = express();
 
@@ -54,6 +55,7 @@ app.use("/api/navigation", navigationRoutes);
 app.use("/api/content", contentRoutes);
 app.use("/api/search", searchRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/ai", aiRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

@@ -1,8 +1,11 @@
 const mongoose = require("mongoose");
+const dns = require("dns");
 
 const logger = require("../utils/logger");
 
 const CONNECT_TIMEOUT_MS = 5000;
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 mongoose.connection.on("error", (err) => {
   logger.error("MongoDB connection error", {
